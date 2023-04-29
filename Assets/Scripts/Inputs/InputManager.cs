@@ -31,7 +31,7 @@ namespace Inputs
 			_playerInputActions.Player.Up.performed += OnUp;
 			_playerInputActions.Player.Left.performed += OnLeft;
 			_playerInputActions.Player.Start.performed += OnStart;
-			
+
 			// _playerInputActions.Player.Down.canceled += OnDownReleased;
 			// _playerInputActions.Player.Right.canceled += OnRightReleased;
 			// _playerInputActions.Player.Up.canceled += OnUpReleased;
