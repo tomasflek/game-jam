@@ -14,6 +14,8 @@ public class PickupController : MonoBehaviour
     [SerializeField]
     private float rotationSpeed;
 
+    private PlayerController _player;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -38,6 +40,7 @@ public class PickupController : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player") && !_pickedUp)
         {
+            _player = other.GetComponent<PlayerController>();
             _pickedUp = true;
             transform.position = other.transform.position;
             transform.Translate(Vector3.up);
@@ -45,8 +48,7 @@ public class PickupController : MonoBehaviour
         }
         else if (other.gameObject.CompareTag("Home"))
         {
-            PlayerController controller = other.GetComponent<PlayerController>();
-            EventManager.Instance.SendEvent(new DeliveryEvent(controller.Name));
+            EventManager.Instance.SendEvent(new DeliveryEvent(_player.Name));
         }
     }
 }
