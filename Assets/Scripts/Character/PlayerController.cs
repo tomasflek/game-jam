@@ -63,6 +63,7 @@ namespace Character
 
 			transform.position = targetPosition;
 			_moving = false;
+			_movementVector = Vector3.zero;
 		}
 
 		private void OnInputKey(InputKeyEvent inputKeyEvent)

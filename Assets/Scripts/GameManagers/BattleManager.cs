@@ -160,6 +160,8 @@ namespace GameManagers
 			if (GameManager.Instance.GameObjectIdPlayerIndex.ContainsKey(playerTwo.GetInstanceID()))
 				_playerTwoControllerIndex = GameManager.Instance.GameObjectIdPlayerIndex[playerTwo.GetInstanceID()];
 
+			_playerOneCurrentCombo = _playerTwoCurrentCombo = 0;
+				
 			GenerateCombo();
 			GenerateComboButtons(PlayerOnePanel, _playerOneControllerIndex);
 			GenerateComboButtons(PlayerTwoPanel, _playerTwoControllerIndex);

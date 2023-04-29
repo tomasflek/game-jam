@@ -113,7 +113,6 @@ namespace GameManagers
 
 				var respawnPoint = respawns[randomIndex];
 				var player = Instantiate(PlayerPrefab, respawnPoint.transform.position, Quaternion.identity);
-				respawns.Remove(respawnPoint);
 				player.name = playerIndex.ToString();
 				GameObjectIdPlayerIndex[player.GetInstanceID()] = playerIndex;
 				
@@ -121,6 +120,8 @@ namespace GameManagers
 				playerController.PlayerIndex = playerIndex;
 				var character = Instantiate(charPrefab, respawns[randomIndex].transform.position, Quaternion.identity);
 				character.transform.parent = player.transform;
+				
+				respawns.Remove(respawnPoint);
 			}
 			
 			var pickaupSpawningPoint = GameObject.FindGameObjectWithTag("PickupSpawn");
