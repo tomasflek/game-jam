@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using Character;
 using Events;
 using Events.Input;
 using Helpers;
@@ -13,18 +14,18 @@ namespace GameManagers
 	public class GameManager : UnitySingleton<GameManager>
 	{
 		//int controllerIndex, ControllerType controllerType
-		public Dictionary<int, ControllerType> PlayerIndexType = new Dictionary<int, ControllerType>();
+		public Dictionary<int, ControllerType> PlayerIndexType = new();
 
 		// map player gameObject id to controller index
-		public Dictionary<int, int> GameObjectIdPlayerIndex = new Dictionary<int, int>();
-		public Dictionary<int, int> PlayerGameObjectIdHomeGameObjectId = new Dictionary<int, int>();
+		public Dictionary<int, int> GameObjectIdPlayerIndex = new();
+		public Dictionary<int, int> PlayerGameObjectIdHomeGameObjectId = new();
 
 		[SerializeField]
 		private List<GameObject> _characterPrefabs;
 		[SerializeField]
 		public GameObject PlayerPrefab;
 
-		public Dictionary<int, int> PlayerIndexSelectedCharacterPrefabIndex = new Dictionary<int, int>();
+		public Dictionary<int, int> PlayerIndexSelectedCharacterPrefabIndex = new();
 
 		protected override void Awake()
 		{
@@ -73,7 +74,6 @@ namespace GameManagers
 					var newIndex = index >= _characterPrefabs.Count - 1 ? 0 : index + 1;
 					PlayerIndexSelectedCharacterPrefabIndex[inputKeyEvent.ControllerIndex] = newIndex;
 					Debug.Log($"Player with index {inputKeyEvent.ControllerIndex} has character with index {newIndex}");
-					// HANDLE SELECTION INPUTS AND PREFAB SELECTION AND START/END
 				}
 			}
 		}
@@ -96,6 +96,7 @@ namespace GameManagers
 			foreach (var playerIndexSelectedCharacterPrefabIndex in PlayerIndexSelectedCharacterPrefabIndex)
 			{
 				var prefabIndex = playerIndexSelectedCharacterPrefabIndex.Value;
+				var playerIndex = playerIndexSelectedCharacterPrefabIndex.Key;
 				var charPrefab = _characterPrefabs[prefabIndex];
 				
 				// get random respawn point
@@ -103,6 +104,8 @@ namespace GameManagers
 				var randomIndex = random.Next(0, respawns.Length);
 				
 				var player = Instantiate(PlayerPrefab, respawns[randomIndex].transform.position, Quaternion.identity);
+				var playerController = player.GetComponent<PlayerController>();
+				playerController.PlayerIndex = playerIndex;
 				var character = Instantiate(charPrefab, respawns[randomIndex].transform.position, Quaternion.identity);
 				character.transform.parent = player.transform;
 			}

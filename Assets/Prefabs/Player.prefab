@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 1016019032485652469}
   - component: {fileID: 6056922260286620904}
   - component: {fileID: 7259891636071032444}
-  - component: {fileID: 7525089133074945777}
   - component: {fileID: 7536415497311703890}
   m_Layer: 0
   m_Name: Player
@@ -47,7 +46,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3269eb558ac3f6c4d8f6a788ec135ff3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _borders: {x: 0, y: 0, z: 0}
+  _borders: {x: 30, y: 0, z: 30}
   _home: {fileID: 0}
 --- !u!95 &7259891636071032444
 Animator:
@@ -70,20 +69,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &7525089133074945777
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8332830177499122150}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3269eb558ac3f6c4d8f6a788ec135ff3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _borders: {x: 20, y: 0, z: 20}
-  _home: {fileID: 0}
 --- !u!136 &7536415497311703890
 CapsuleCollider:
   m_ObjectHideFlags: 0

@@ -67,7 +67,7 @@ namespace Character
 
 		private void OnInputKey(InputKeyEvent inputKeyEvent)
 		{
-			if (inputKeyEvent.KeyPress is not KeyPress.Pressed || _moving)
+			if (inputKeyEvent.KeyPress is not KeyPress.Pressed || _moving || inputKeyEvent.ControllerIndex != PlayerIndex)
 				return;
 
 			switch (inputKeyEvent.Action)
@@ -130,6 +130,7 @@ namespace Character
 		}
 
 		public ControllerState ControllerState { get; set; }
+		public int PlayerIndex { get; set; }
 
 		/// <summary>
 		/// Enables character controller and registers all events.
