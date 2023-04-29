@@ -387,7 +387,7 @@ MonoBehaviour:
   - {fileID: 1294174133349730743, guid: 2f8ed0cd401e61040b7a91edfd29a3eb, type: 3}
   - {fileID: 6791229015485583431, guid: 092064bf8f6ce124fadae61f9f36d4e1, type: 3}
   - {fileID: 5489753997771759910, guid: df4e4a26ba16045429c7e05b3aedfdd0, type: 3}
-  _playerPrefab: {fileID: 8332830177499122150, guid: aedad5a7d9af061489c1edd3f454bf11, type: 3}
+  PlayerPrefab: {fileID: 8332830177499122150, guid: aedad5a7d9af061489c1edd3f454bf11, type: 3}
 --- !u!4 &1633770336
 Transform:
   m_ObjectHideFlags: 0

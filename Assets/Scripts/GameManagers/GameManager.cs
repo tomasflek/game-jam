@@ -19,11 +19,12 @@ namespace GameManagers
 		public Dictionary<int, int> GameObjectIdPlayerIndex = new Dictionary<int, int>();
 		public Dictionary<int, int> PlayerGameObjectIdHomeGameObjectId = new Dictionary<int, int>();
 
-		[SerializeField] private List<GameObject> _characterPrefabs;
-		[FormerlySerializedAs("_playerPrefabs")]
-		[SerializeField] private GameObject _playerPrefab;
+		[SerializeField]
+		private List<GameObject> _characterPrefabs;
+		[SerializeField]
+		public GameObject PlayerPrefab;
 
-		private Dictionary<int, int> _playerIndexSelectedCharacterPrefabIndex = new Dictionary<int, int>();
+		public Dictionary<int, int> PlayerIndexSelectedCharacterPrefabIndex = new Dictionary<int, int>();
 
 		protected override void Awake()
 		{
@@ -63,14 +64,14 @@ namespace GameManagers
 				if (!PlayerIndexType.ContainsKey(inputKeyEvent.ControllerIndex))
 				{
 					PlayerIndexType.Add(inputKeyEvent.ControllerIndex, inputKeyEvent.ControllerType);
-					_playerIndexSelectedCharacterPrefabIndex.Add(inputKeyEvent.ControllerIndex, 0);
+					PlayerIndexSelectedCharacterPrefabIndex.Add(inputKeyEvent.ControllerIndex, 0);
 					Debug.Log($"Player with index {inputKeyEvent.ControllerIndex} has character with index {0}");
 				}
 				else
 				{
-					var index = _playerIndexSelectedCharacterPrefabIndex[inputKeyEvent.ControllerIndex];
+					var index = PlayerIndexSelectedCharacterPrefabIndex[inputKeyEvent.ControllerIndex];
 					var newIndex = index >= _characterPrefabs.Count - 1 ? 0 : index + 1;
-					_playerIndexSelectedCharacterPrefabIndex[inputKeyEvent.ControllerIndex] = newIndex;
+					PlayerIndexSelectedCharacterPrefabIndex[inputKeyEvent.ControllerIndex] = newIndex;
 					Debug.Log($"Player with index {inputKeyEvent.ControllerIndex} has character with index {newIndex}");
 					// HANDLE SELECTION INPUTS AND PREFAB SELECTION AND START/END
 				}
@@ -92,7 +93,7 @@ namespace GameManagers
 				respawn.SetActive(false);
 			}
 
-			foreach (var playerIndexSelectedCharacterPrefabIndex in _playerIndexSelectedCharacterPrefabIndex)
+			foreach (var playerIndexSelectedCharacterPrefabIndex in PlayerIndexSelectedCharacterPrefabIndex)
 			{
 				var prefabIndex = playerIndexSelectedCharacterPrefabIndex.Value;
 				var charPrefab = _characterPrefabs[prefabIndex];
@@ -101,9 +102,9 @@ namespace GameManagers
 				var random = new System.Random();
 				var randomIndex = random.Next(0, respawns.Length);
 				
-				var player = Instantiate(_playerPrefab, respawns[randomIndex].transform.position, Quaternion.identity);
+				var player = Instantiate(PlayerPrefab, respawns[randomIndex].transform.position, Quaternion.identity);
 				var character = Instantiate(charPrefab, respawns[randomIndex].transform.position, Quaternion.identity);
-				
+				character.transform.parent = player.transform;
 			}
 		}
 
