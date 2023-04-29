@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Linq;
 using ActivationDeactivation;
@@ -15,8 +14,6 @@ namespace Character
 	public class PlayerController : MonoBehaviour, IControllerActivable
 	{
 		[SerializeField] private Vector3 _borders;
-
-		[SerializeField] private GameObject _home;
 
 		private Vector3 _movementVector;
 		private Vector3 _sourceMovement;
@@ -109,7 +106,11 @@ namespace Character
 
 		private bool CanMove(Vector3 targetPosition)
 		{
-		 
+			// Check boundaries movement.
+			if (Mathf.Abs(targetPosition.z) >= _borders.z)
+				return false;
+			if (Mathf.Abs(targetPosition.x) >= _borders.x)
+				return false;
 
 			// Check whether it's possible to move to home (cannot move only to my home)
 			Collider[] hitColliders = Physics.OverlapSphere(targetPosition, 0.5f);

@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Assets.Scripts.Events;
 using Character;
 using Events;
 using Events.Input;
@@ -29,6 +28,7 @@ namespace GameManagers
 		private GameObject _pickupPrefab;
 
 		public Dictionary<int, int> PlayerIndexSelectedCharacterPrefabIndex = new();
+		public Action<int, int> PlayerSelectedEvent; 
 		private GameObject _pickup;
 		public bool Paused { get; set; }
 		public GameObject PlayerWithPickup { get; set; }
@@ -73,7 +73,7 @@ namespace GameManagers
 					PlayerIndexType.Add(inputKeyEvent.ControllerIndex, inputKeyEvent.ControllerType);
 					PlayerIndexSelectedCharacterPrefabIndex.Add(inputKeyEvent.ControllerIndex, 0);
 					Debug.Log($"Player with index {inputKeyEvent.ControllerIndex} has character with index {0}");
-					EventManager.Instance.SendEvent(new PlayerSelectionEvent());
+					PlayerSelectedEvent?.Invoke(inputKeyEvent.ControllerIndex, 0);
 				}
 				else
 				{
@@ -81,8 +81,7 @@ namespace GameManagers
 					var newIndex = index >= CharacterPrefabs.Count - 1 ? 0 : index + 1;
 					PlayerIndexSelectedCharacterPrefabIndex[inputKeyEvent.ControllerIndex] = newIndex;
 					Debug.Log($"Player with index {inputKeyEvent.ControllerIndex} has character with index {newIndex}");
-					EventManager.Instance.SendEvent(new PlayerSelectionEvent());
-					// HANDLE SELECTION INPUTS AND PREFAB SELECTION AND START/END
+					PlayerSelectedEvent?.Invoke(inputKeyEvent.ControllerIndex, newIndex);
 				}
 			}
 		}
@@ -96,7 +95,7 @@ namespace GameManagers
 		private void OnSceneLoaded(Scene scene, LoadSceneMode loadSceneMode)
 		{
 			// Find spawning points.
-			var respawns = GameObject.FindGameObjectsWithTag("PlayerSpawn");
+			var respawns = GameObject.FindGameObjectsWithTag("PlayerSpawn").ToList();
 			foreach (var respawn in respawns)
 			{
 				respawn.SetActive(false);
@@ -110,9 +109,11 @@ namespace GameManagers
 				
 				// get random respawn point
 				var random = new System.Random();
-				var randomIndex = random.Next(0, respawns.Length);
-				
-				var player = Instantiate(PlayerPrefab, respawns[randomIndex].transform.position, Quaternion.identity);
+				var randomIndex = random.Next(0, respawns.Count);
+
+				var respawnPoint = respawns[randomIndex];
+				var player = Instantiate(PlayerPrefab, respawnPoint.transform.position, Quaternion.identity);
+				respawns.Remove(respawnPoint);
 				player.name = playerIndex.ToString();
 				GameObjectIdPlayerIndex[player.GetInstanceID()] = playerIndex;
 				
