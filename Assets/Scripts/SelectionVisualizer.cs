@@ -12,6 +12,7 @@ public class SelectionVisualizer : MonoBehaviour
 {
 	[SerializeField] private List<Transform> _playerHookUps;
 	[SerializeField] private List<TextMeshProUGUI> _playerNames;
+	private List<int> _playerIndices = new List<int>(4);
 
 	private void Start()
 	{
@@ -25,25 +26,19 @@ public class SelectionVisualizer : MonoBehaviour
 
 	private void VisualizePlayerSelection(PlayerSelectionEvent playerSelectionEvent)
 	{
-		//var characterPrefabs = GameManager.Instance.CharacterPrefabs;
-		//if (_playerHookUps.Count != characterPrefabs.Count || _playerNames.Count != characterPrefabs.Count)
-		//{
-		//	Debug.LogWarning("Suspiscisisiously different number of slots");
-		//}
+		var characterPrefabs = GameManager.Instance.CharacterPrefabs;
+		foreach (KeyValuePair<int, int> index  in GameManager.Instance.PlayerIndexSelectedCharacterPrefabIndex)	
+		{
+			if (!_playerIndices.Contains(index.Key))
+				_playerIndices.Add(index.Key);
 
-		//if (playerIndex >= characterPrefabs.Count)
-		//{
-		//	Debug.LogWarning("Player index is suspiscisisiously larger than number of prefabs");
-		//	return;
-		//}
-
-		//Transform hookUp = _playerHookUps[playerIndex];
-		//// Destroy if figure is already there
-		//if (hookUp.childCount > 0)
-		//{
-		//	Destroy(hookUp.transform.GetChild(0).gameObject);
-		//}
-		//Instantiate(characterPrefabs[playerIndex], hookUp);
-		//_playerNames[playerIndex].text = $"Player {playerIndex + 1}";
+			int playerIndex = _playerIndices.IndexOf(index.Key);
+			Transform hookup = _playerHookUps[playerIndex];
+			// Destroy if some object already present
+			if (hookup.childCount > 0)
+				Destroy(hookup.GetChild(0).gameObject);
+			Instantiate(characterPrefabs[index.Value], hookup);
+			_playerNames[playerIndex].text = $"Player {playerIndex + 1}";
+		}
 	}
 }
