@@ -13,16 +13,6 @@ namespace Inputs
 
 		#endregion
 
-		#region Properties
-
-		// private Vector2 Movement => _playerInputActions.Player.Move.ReadValue<Vector2>();
-		//
-		// private Direction Direction => Mathf.Abs(Movement.x) > Constants.Math.FloatEps ?
-		// 	(Direction)Mathf.Sign(Movement.x) :
-		// 	Direction.NoDirection;
-
-		#endregion
-
 		#region Methods
 
 		protected override void Awake()
@@ -30,7 +20,6 @@ namespace Inputs
 			base.Awake();
 
 			_playerInputActions = new PlayerInputActions();
-			
 			_playerInputActions.Player.Left.Enable();
 			_playerInputActions.Player.Up.Enable();
 			_playerInputActions.Player.Right.Enable();
@@ -45,26 +34,21 @@ namespace Inputs
 			_playerInputActions.Player.Right.canceled += OnRightReleased;
 			_playerInputActions.Player.Up.canceled += OnUpReleased;
 			_playerInputActions.Player.Left.canceled += OnLeftReleased;
-
-			// _playerInputActions.Player.Jump.performed += OnJumpPerformed;
-			// _playerInputActions.Player.Jump.canceled += OnJumpCanceled;
-			//
-			// _playerInputActions.Player.Dash.performed += OnDashPerformed;
 		}
 
 		private void OnUp(UnityEngine.InputSystem.InputAction.CallbackContext obj)
 		{
-			EventManager.Instance.SendEvent(new InputKeyEvent(InputAction.Left, KeyPress.Pressed));
+			EventManager.Instance.SendEvent(new InputKeyEvent(InputAction.Up, KeyPress.Pressed));
 		}
 
 		private void OnRight(UnityEngine.InputSystem.InputAction.CallbackContext obj)
 		{
-			EventManager.Instance.SendEvent(new InputKeyEvent(InputAction.Left, KeyPress.Pressed));
+			EventManager.Instance.SendEvent(new InputKeyEvent(InputAction.Right, KeyPress.Pressed));
 		}
 
 		private void OnDown(UnityEngine.InputSystem.InputAction.CallbackContext obj)
 		{
-			EventManager.Instance.SendEvent(new InputKeyEvent(InputAction.Left, KeyPress.Pressed));
+			EventManager.Instance.SendEvent(new InputKeyEvent(InputAction.Down, KeyPress.Pressed));
 		}
 
 		private void OnLeft(UnityEngine.InputSystem.InputAction.CallbackContext obj)
@@ -74,22 +58,22 @@ namespace Inputs
 		
 		private void OnUpReleased(UnityEngine.InputSystem.InputAction.CallbackContext obj)
 		{
-			EventManager.Instance.SendEvent(new InputKeyEvent(InputAction.Left, KeyPress.Pressed));
+			EventManager.Instance.SendEvent(new InputKeyEvent(InputAction.Up, KeyPress.Released));
 		}
 
 		private void OnRightReleased(UnityEngine.InputSystem.InputAction.CallbackContext obj)
 		{
-			EventManager.Instance.SendEvent(new InputKeyEvent(InputAction.Left, KeyPress.Pressed));
+			EventManager.Instance.SendEvent(new InputKeyEvent(InputAction.Right, KeyPress.Released));
 		}
 
 		private void OnDownReleased(UnityEngine.InputSystem.InputAction.CallbackContext obj)
 		{
-			EventManager.Instance.SendEvent(new InputKeyEvent(InputAction.Left, KeyPress.Pressed));
+			EventManager.Instance.SendEvent(new InputKeyEvent(InputAction.Down, KeyPress.Released));
 		}
 
 		private void OnLeftReleased(UnityEngine.InputSystem.InputAction.CallbackContext obj)
 		{
-			EventManager.Instance.SendEvent(new InputKeyEvent(InputAction.Left, KeyPress.Pressed));
+			EventManager.Instance.SendEvent(new InputKeyEvent(InputAction.Left, KeyPress.Released));
 		}
 		
 		#endregion
