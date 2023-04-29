@@ -13,6 +13,10 @@ namespace Assets.Scripts.GameManagers
 		public int ComboCounter = 5;
 		public float AiPressTimerMin = 0.5f;
 		public float AiPressTimerMax = 1.5f;
+
+		private Camera _mainCamera;
+		public Camera battleCamera;
+
 		private bool _isBattling;
 		[SerializeField] private Transform _playerOneFightPosition;
 		[SerializeField] private Transform _playerTwoFightPosition;
@@ -38,14 +42,23 @@ namespace Assets.Scripts.GameManagers
 		private float _playerOneAiTimer = 0f;
 		private float _playerTwoAiTimer = 0f;
 
+		public GameObject playerOneMock;
+		public GameObject playerTwoMock;
+
 		void Awake()
 		{
-
+			_mainCamera = Camera.main;
+			if (battleCamera == null)
+			{
+				battleCamera = Camera.main;
+			}
 		}
 
 		void Start()
 		{
-
+			// mock data
+			if (playerOneMock != null && playerTwoMock != null) 
+				StartBattle(playerOneMock, playerTwoMock);
 		}
 
 		void Update()
@@ -58,6 +71,7 @@ namespace Assets.Scripts.GameManagers
 				if (_playerOneAiTimer < 0f)
 				{
 					_playerOneInput = _currentCombo[_playerOneCurrentCombo];
+					_playerOneAiTimer = GetNewAiTimer();
 				}
 			}
 			if (_playerTwoAi)
@@ -66,6 +80,7 @@ namespace Assets.Scripts.GameManagers
 				if (_playerTwoAiTimer < 0f)
 				{
 					_playerTwoInput = _currentCombo[_playerTwoCurrentCombo];
+					_playerTwoAiTimer = GetNewAiTimer();
 				}
 			}
 
@@ -101,7 +116,21 @@ namespace Assets.Scripts.GameManagers
 			}
 		}
 
-		public void StartBattle(GameObject playerOne, int comboIndex, GameObject playerTwo)
+		private void SetBattleCamera()
+		{
+			if (battleCamera == Camera.main) return;
+			battleCamera.gameObject.SetActive(true);
+			_mainCamera.gameObject.SetActive(false);
+		}
+
+		private void EndBattleCamera()
+		{
+			if (battleCamera == Camera.main) return;
+			battleCamera.gameObject.SetActive(false);
+			_mainCamera.gameObject.SetActive(true);
+		}
+
+		public void StartBattle(GameObject playerOne, GameObject playerTwo)
 		{
 			_playerOne = playerOne;
 			_playerTwo = playerTwo;
@@ -111,8 +140,8 @@ namespace Assets.Scripts.GameManagers
 			_playerTwo.transform.position = _playerTwoFightPosition.position;
 			BattleCanvas.gameObject.SetActive(true);
 			ActivateController(this);
-			_playerOneAi = playerOne.GetComponent<PlayerController>() != null;
-			_playerTwoAi = playerTwo.GetComponent<PlayerController>() != null;
+			_playerOneAi = playerOne.GetComponent<PlayerController>() == null;
+			_playerTwoAi = playerTwo.GetComponent<PlayerController>() == null;
 			if (_playerOneAi)
 				_playerOneAiTimer = GetNewAiTimer();
 			if (_playerTwoAi)
@@ -128,6 +157,8 @@ namespace Assets.Scripts.GameManagers
 			GenerateComboButtons(PlayerOnePanel, _playerOneControllerIndex);
 			GenerateComboButtons(PlayerTwoPanel, _playerTwoControllerIndex);
 
+			SetBattleCamera();
+
 			_isBattling = true;
 		}
 
@@ -138,6 +169,7 @@ namespace Assets.Scripts.GameManagers
 			_playerOne.transform.position = _playerOneStartPosition;
 			_playerTwo.transform.position = _playerTwoStartPosition;
 			BattleCanvas.gameObject.SetActive(false);
+			EndBattleCamera();
 		}
 
 		private float GetNewAiTimer()
@@ -150,7 +182,7 @@ namespace Assets.Scripts.GameManagers
 			_currentCombo = new List<InputAction>(ComboCounter);
 			for (int i = 0; i < ComboCounter; i++)
 			{
-				_currentCombo[i] = (InputAction) Random.Range(0, 4);
+				_currentCombo.Add((InputAction)Random.Range(0, 4));
 			}
 		}
 
@@ -162,8 +194,13 @@ namespace Assets.Scripts.GameManagers
 			}
 			foreach (InputAction inputAction in _currentCombo)
 			{
-				GameObject button = UIManager.Instance.GetComboButton(inputAction, GameManager.Instance.PlayerIndexType[playerIndex]);
-				button.transform.parent = playerPanel.transform;
+				if (!GameManager.Instance.PlayerIndexType.TryGetValue(playerIndex, out ControllerType controllerType))
+				{
+					controllerType = ControllerType.Xbox;
+				}
+				GameObject button = UIManager.Instance.GetComboButton(inputAction, controllerType);
+				button.transform.SetParent(playerPanel.transform, false);
+
 			}
 		}
 

@@ -1,10 +1,10 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Helpers;
 using Inputs;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class UIManager : UnitySingleton<UIManager>
 {
@@ -16,7 +16,9 @@ public class UIManager : UnitySingleton<UIManager>
 		Sprite sprite = inputList
 						.FirstOrDefault(i => i.inputAction == inputAction && i.controllerType == controllerType)
 						.sprite;
-		return GameObject.Instantiate(BattleControlImagePrefab);
+		GameObject go = GameObject.Instantiate(BattleControlImagePrefab);
+		go.GetComponent<Image>().sprite = sprite;
+		return go;
 	}
 }
 
