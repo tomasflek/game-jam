@@ -88,8 +88,11 @@ namespace GameManagers
 
 		private void GameStart()
 		{
-			SceneManager.LoadScene("GameScene");
-			SceneManager.sceneLoaded += OnSceneLoaded;
+			if (SceneManager.GetActiveScene().name != "GameScene")
+			{
+				SceneManager.LoadScene("GameScene");
+				SceneManager.sceneLoaded += OnSceneLoaded;
+			}
 		}
 
 		private void OnSceneLoaded(Scene scene, LoadSceneMode loadSceneMode)

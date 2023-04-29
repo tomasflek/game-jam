@@ -28,7 +28,8 @@ namespace Character
 		{
 			_animator = GetComponent<Animator>();
 			_movementDuration = GetMovementDuration();
-			RegisterController();
+			// RegisterController();
+			EventManager.Instance.Register<InputKeyEvent>(OnInputKey);
 		}
 
 		private float GetMovementDuration()
@@ -70,6 +71,9 @@ namespace Character
 		{
 			if (inputKeyEvent.KeyPress is not KeyPress.Pressed || _moving ||
 			    inputKeyEvent.ControllerIndex != PlayerIndex || GameManager.Instance.Paused)
+				return;
+
+			if (inputKeyEvent.Action is InputAction.Start)
 				return;
 
 			switch (inputKeyEvent.Action)
