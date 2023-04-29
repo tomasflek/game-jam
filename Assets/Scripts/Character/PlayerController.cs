@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using ActivationDeactivation;
 using Events;
@@ -9,9 +10,10 @@ using UnityEngine;
 namespace Character
 {
 	[RequireComponent(typeof(Animator))]
-	public class CharacterController : MonoBehaviour, IControllerActivable
+	public class PlayerController : MonoBehaviour, IControllerActivable
 	{
-		[SerializeField] private Vector3 _borders;
+		[SerializeField]
+		private Vector3 _borders;
 
 		private Vector3 _targetIncrementMovement;
 		private Vector3 _sourceMovement;
@@ -19,6 +21,8 @@ namespace Character
 		private static readonly int IsMovingTrigger = Animator.StringToHash("IsMovingTrigger");
 		private float _movementDuration;
 		private bool _moving;
+
+		public string Name { get; set; }
 
 		private void Awake()
 		{
