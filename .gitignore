@@ -61,3 +61,4 @@ crashlytics-build.properties
 .vsconfig
 /ProjectSettings/Packages/com.unity.testtools.codecoverage/Settings.json
 /ProjectSettings/ShaderGraphSettings.asset
+/UserSettings/EditorUserSettings.asset
