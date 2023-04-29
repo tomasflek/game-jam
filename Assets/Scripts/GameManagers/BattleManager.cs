@@ -47,8 +47,10 @@ namespace GameManagers
 		public GameObject playerOneMock;
 		public GameObject playerTwoMock;
 
-		void Awake()
+		protected override void Awake()
 		{
+			base.Awake();
+			
 			_mainCamera = Camera.main;
 			if (battleCamera == null)
 			{

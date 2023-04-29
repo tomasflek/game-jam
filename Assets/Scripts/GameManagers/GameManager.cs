@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Character;
@@ -20,7 +21,7 @@ namespace GameManagers
 		public Dictionary<int, int> PlayerGameObjectIdHomeGameObjectId = new();
 
 		[SerializeField]
-		private List<GameObject> _characterPrefabs;
+		public List<GameObject> CharacterPrefabs;
 		[SerializeField]
 		public GameObject PlayerPrefab;
 		[SerializeField]
@@ -72,13 +73,16 @@ namespace GameManagers
 					PlayerIndexType.Add(inputKeyEvent.ControllerIndex, inputKeyEvent.ControllerType);
 					PlayerIndexSelectedCharacterPrefabIndex.Add(inputKeyEvent.ControllerIndex, 0);
 					Debug.Log($"Player with index {inputKeyEvent.ControllerIndex} has character with index {0}");
+					PlayerSelectedEvent?.Invoke(inputKeyEvent.ControllerIndex, 0);
 				}
 				else
 				{
 					var index = PlayerIndexSelectedCharacterPrefabIndex[inputKeyEvent.ControllerIndex];
-					var newIndex = index >= _characterPrefabs.Count - 1 ? 0 : index + 1;
+					var newIndex = index >= CharacterPrefabs.Count - 1 ? 0 : index + 1;
 					PlayerIndexSelectedCharacterPrefabIndex[inputKeyEvent.ControllerIndex] = newIndex;
 					Debug.Log($"Player with index {inputKeyEvent.ControllerIndex} has character with index {newIndex}");
+					PlayerSelectedEvent?.Invoke(inputKeyEvent.ControllerIndex, newIndex);
+					// HANDLE SELECTION INPUTS AND PREFAB SELECTION AND START/END
 				}
 			}
 		}
@@ -102,23 +106,37 @@ namespace GameManagers
 			{
 				var prefabIndex = playerIndexSelectedCharacterPrefabIndex.Value;
 				var playerIndex = playerIndexSelectedCharacterPrefabIndex.Key;
-				var charPrefab = _characterPrefabs[prefabIndex];
+				var charPrefab = CharacterPrefabs[prefabIndex];
 				
 				// get random respawn point
 				var random = new System.Random();
 				var randomIndex = random.Next(0, respawns.Length);
 				
 				var player = Instantiate(PlayerPrefab, respawns[randomIndex].transform.position, Quaternion.identity);
+				player.name = playerIndex.ToString();
+				GameObjectIdPlayerIndex[player.GetInstanceID()] = playerIndex;
+				
 				var playerController = player.GetComponent<PlayerController>();
 				playerController.PlayerIndex = playerIndex;
 				var character = Instantiate(charPrefab, respawns[randomIndex].transform.position, Quaternion.identity);
 				character.transform.parent = player.transform;
 			}
+			
+			var pickaupSpawningPoint = GameObject.FindGameObjectWithTag("PickupSpawn");
+			_pickup = Instantiate(_pickupPrefab, pickaupSpawningPoint.transform.position , Quaternion.identity);
 		}
 
 		public void OnDestroy()
 		{
 			EndPlayerRegistry();
+		}
+	
+		public void Pickup(Transform player)
+		{
+			PlayerWithPickup = player.gameObject;
+			_pickup.transform.position = player.transform.position;
+			_pickup.transform.Translate(Vector3.up);
+			_pickup.transform.parent = player.transform;
 		}
 	}
 }
