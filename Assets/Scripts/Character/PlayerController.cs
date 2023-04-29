@@ -15,7 +15,10 @@ namespace Character
 		[SerializeField]
 		private Vector3 _borders;
 
-		private Vector3 _targetIncrementMovement;
+		[SerializeField]
+		private GameObject _home;
+		
+		private Vector3 _movementVector;
 		private Vector3 _sourceMovement;
 		private Animator _animator;
 		private static readonly int IsMovingTrigger = Animator.StringToHash("IsMovingTrigger");
@@ -64,26 +67,27 @@ namespace Character
 
 		private void OnInputKey(InputKeyEvent inputKeyEvent)
 		{
+			Debug.Log(inputKeyEvent.ControllerType);
 			if (inputKeyEvent.KeyPress is not KeyPress.Pressed || _moving)
 				return;
 
 			switch (inputKeyEvent.Action)
 			{
 				case InputAction.Left:
-					_targetIncrementMovement = Vector3.left;
+					_movementVector = Vector3.left;
 					break;
 				case InputAction.Right:
-					_targetIncrementMovement = Vector3.right;
+					_movementVector = Vector3.right;
 					break;
 				case InputAction.Up:
-					_targetIncrementMovement = Vector3.forward;
+					_movementVector = Vector3.forward;
 					break;
 				case InputAction.Down:
-					_targetIncrementMovement = Vector3.back;
+					_movementVector = Vector3.back;
 					break;
 			}
 
-			var destinationPosition = _targetIncrementMovement + transform.position;
+			var destinationPosition = _movementVector + transform.position;
 			if (!CanMove(destinationPosition))
 				return;
 			
@@ -95,10 +99,16 @@ namespace Character
 
 		private bool CanMove(Vector3 targetPosition)
 		{
+			// Check boundaries movement.
 			if (Mathf.Abs(targetPosition.z) >= _borders.z)
 				return false;
 			if (Mathf.Abs(targetPosition.x) >= _borders.x)
 				return false;
+
+			if (Physics.Raycast(transform.position, _movementVector, out var info, 1))
+			{
+				// if (info.)
+			}
 
 			return true;
 		}

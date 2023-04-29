@@ -7,4 +7,11 @@
 		Up,
 		Down,
 	}
+
+	public enum ControllerType
+	{
+		Xbox,
+		DualShock,
+		Keyboard
+	}
 }

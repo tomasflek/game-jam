@@ -2,6 +2,7 @@ using Events;
 using Events.Input;
 using Helpers;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace Inputs
 {
@@ -38,42 +39,63 @@ namespace Inputs
 
 		private void OnUp(UnityEngine.InputSystem.InputAction.CallbackContext obj)
 		{
-			EventManager.Instance.SendEvent(new InputKeyEvent(InputAction.Up, KeyPress.Pressed));
+			var controllerType = GetControllerType(obj.control.device);
+			EventManager.Instance.SendEvent(new InputKeyEvent(InputAction.Up, KeyPress.Pressed, obj.control.device.deviceId, controllerType));
 		}
 
 		private void OnRight(UnityEngine.InputSystem.InputAction.CallbackContext obj)
 		{
-			EventManager.Instance.SendEvent(new InputKeyEvent(InputAction.Right, KeyPress.Pressed));
+			var controllerType = GetControllerType(obj.control.device);
+			EventManager.Instance.SendEvent(new InputKeyEvent(InputAction.Right, KeyPress.Pressed, obj.control.device.deviceId, controllerType));
 		}
 
 		private void OnDown(UnityEngine.InputSystem.InputAction.CallbackContext obj)
 		{
-			EventManager.Instance.SendEvent(new InputKeyEvent(InputAction.Down, KeyPress.Pressed));
+			var controllerType = GetControllerType(obj.control.device);
+			EventManager.Instance.SendEvent(new InputKeyEvent(InputAction.Down, KeyPress.Pressed, obj.control.device.deviceId, controllerType));
 		}
 
 		private void OnLeft(UnityEngine.InputSystem.InputAction.CallbackContext obj)
 		{
-			EventManager.Instance.SendEvent(new InputKeyEvent(InputAction.Left, KeyPress.Pressed));
+			var controllerType = GetControllerType(obj.control.device);
+			EventManager.Instance.SendEvent(new InputKeyEvent(InputAction.Left, KeyPress.Pressed, obj.control.device.deviceId, controllerType));
 		}
 		
 		private void OnUpReleased(UnityEngine.InputSystem.InputAction.CallbackContext obj)
 		{
-			EventManager.Instance.SendEvent(new InputKeyEvent(InputAction.Up, KeyPress.Released));
+			var controllerType = GetControllerType(obj.control.device);
+			EventManager.Instance.SendEvent(new InputKeyEvent(InputAction.Up, KeyPress.Released, obj.control.device.deviceId, controllerType));
 		}
 
 		private void OnRightReleased(UnityEngine.InputSystem.InputAction.CallbackContext obj)
 		{
-			EventManager.Instance.SendEvent(new InputKeyEvent(InputAction.Right, KeyPress.Released));
+			var controllerType = GetControllerType(obj.control.device);
+			EventManager.Instance.SendEvent(new InputKeyEvent(InputAction.Right, KeyPress.Released, obj.control.device.deviceId, controllerType));
 		}
 
 		private void OnDownReleased(UnityEngine.InputSystem.InputAction.CallbackContext obj)
 		{
-			EventManager.Instance.SendEvent(new InputKeyEvent(InputAction.Down, KeyPress.Released));
+			var controllerType = GetControllerType(obj.control.device);
+			EventManager.Instance.SendEvent(new InputKeyEvent(InputAction.Down, KeyPress.Released, obj.control.device.deviceId,controllerType));
 		}
 
 		private void OnLeftReleased(UnityEngine.InputSystem.InputAction.CallbackContext obj)
 		{
-			EventManager.Instance.SendEvent(new InputKeyEvent(InputAction.Left, KeyPress.Released));
+			var controllerType = GetControllerType(obj.control.device);
+			EventManager.Instance.SendEvent(new InputKeyEvent(InputAction.Left, KeyPress.Released, obj.control.device.deviceId, controllerType));
+		}
+		
+		
+		private ControllerType GetControllerType(InputDevice device)
+		{
+			if (device.description.manufacturer.Contains("Sony"))
+				return ControllerType.DualShock;
+			if (device.displayName.Contains("Xbox"))
+				return ControllerType.Xbox;
+			if (device.displayName is "Keyboard")
+				return ControllerType.Keyboard;
+
+			return ControllerType.Xbox;
 		}
 		
 		#endregion

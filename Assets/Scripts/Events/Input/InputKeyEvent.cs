@@ -18,11 +18,23 @@ namespace Events.Input
 		/// </summary>
 		public KeyPress KeyPress { get; }
 		
+		public int ControllerIndex { get; }
+		public ControllerType ControllerType { get; }
+		
+		
+		public InputKeyEvent(InputAction action, KeyPress keyPress, int controllerIndex, ControllerType controllerType)
+		{
+			Action = action;
+			KeyPress = keyPress;
+			ControllerIndex = controllerIndex;
+			ControllerType = controllerType;
+		}
 		
 		public InputKeyEvent(InputAction action, KeyPress keyPress)
 		{
 			Action = action;
 			KeyPress = keyPress;
+			// ControllerIndex = controllerIndex;
 		}
 	}
 	
