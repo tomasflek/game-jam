@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Character;
@@ -21,11 +22,12 @@ namespace GameManagers
 		public Dictionary<int, int> PlayerGameObjectIdHomeGameObjectId = new();
 
 		[SerializeField]
-		private List<GameObject> _characterPrefabs;
+		public List<GameObject> CharacterPrefabs;
 		[SerializeField]
 		public GameObject PlayerPrefab;
 
 		public Dictionary<int, int> PlayerIndexSelectedCharacterPrefabIndex = new();
+		public Action<int, int> PlayerSelectedEvent; 
 
 		protected override void Awake()
 		{
@@ -67,13 +69,16 @@ namespace GameManagers
 					PlayerIndexType.Add(inputKeyEvent.ControllerIndex, inputKeyEvent.ControllerType);
 					PlayerIndexSelectedCharacterPrefabIndex.Add(inputKeyEvent.ControllerIndex, 0);
 					Debug.Log($"Player with index {inputKeyEvent.ControllerIndex} has character with index {0}");
+					PlayerSelectedEvent?.Invoke(inputKeyEvent.ControllerIndex, 0);
 				}
 				else
 				{
 					var index = PlayerIndexSelectedCharacterPrefabIndex[inputKeyEvent.ControllerIndex];
-					var newIndex = index >= _characterPrefabs.Count - 1 ? 0 : index + 1;
+					var newIndex = index >= CharacterPrefabs.Count - 1 ? 0 : index + 1;
 					PlayerIndexSelectedCharacterPrefabIndex[inputKeyEvent.ControllerIndex] = newIndex;
 					Debug.Log($"Player with index {inputKeyEvent.ControllerIndex} has character with index {newIndex}");
+					PlayerSelectedEvent?.Invoke(inputKeyEvent.ControllerIndex, newIndex);
+					// HANDLE SELECTION INPUTS AND PREFAB SELECTION AND START/END
 				}
 			}
 		}
@@ -97,7 +102,7 @@ namespace GameManagers
 			{
 				var prefabIndex = playerIndexSelectedCharacterPrefabIndex.Value;
 				var playerIndex = playerIndexSelectedCharacterPrefabIndex.Key;
-				var charPrefab = _characterPrefabs[prefabIndex];
+				var charPrefab = CharacterPrefabs[prefabIndex];
 				
 				// get random respawn point
 				var random = new System.Random();
