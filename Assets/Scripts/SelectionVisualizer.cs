@@ -1,6 +1,11 @@
 using System.Collections.Generic;
+using Assets.Scripts.Events;
+using Events.Input;
+using Events;
 using GameManagers;
+using Inputs;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class SelectionVisualizer : MonoBehaviour
@@ -10,30 +15,35 @@ public class SelectionVisualizer : MonoBehaviour
 
 	private void Start()
 	{
-		GameManager.Instance.PlayerSelectedEvent += VisualizePlayerSelection;
+		EventManager.Instance.Register<PlayerSelectionEvent>(VisualizePlayerSelection);
 	}
 
-	private void VisualizePlayerSelection(int controllerIndex, int avatarIndex)
+	private void OnDestroy()
 	{
-		var characterPrefabs = GameManager.Instance.CharacterPrefabs;
-		if (_playerHookUps.Count != characterPrefabs.Count || _playerNames.Count != characterPrefabs.Count)
-		{
-			Debug.LogWarning("Suspiscisisiously different number of slots");
-		}
+		EventManager.Instance.Unregister<PlayerSelectionEvent>(VisualizePlayerSelection);
+	}
 
-		if (avatarIndex >= characterPrefabs.Count)
-		{
-			Debug.LogWarning("Player index is suspiscisisiously larger than number of prefabs");
-			return;
-		}
+	private void VisualizePlayerSelection(PlayerSelectionEvent playerSelectionEvent)
+	{
+		//var characterPrefabs = GameManager.Instance.CharacterPrefabs;
+		//if (_playerHookUps.Count != characterPrefabs.Count || _playerNames.Count != characterPrefabs.Count)
+		//{
+		//	Debug.LogWarning("Suspiscisisiously different number of slots");
+		//}
 
-		Transform hookUp = _playerHookUps[avatarIndex];
-		// Destroy if figure is already there
-		if (hookUp.childCount > 0)
-		{
-			Destroy(hookUp.transform.GetChild(0).gameObject);
-		}
-		Instantiate(characterPrefabs[avatarIndex], hookUp);
-		_playerNames[avatarIndex].text = $"Player {avatarIndex + 1}";
+		//if (playerIndex >= characterPrefabs.Count)
+		//{
+		//	Debug.LogWarning("Player index is suspiscisisiously larger than number of prefabs");
+		//	return;
+		//}
+
+		//Transform hookUp = _playerHookUps[playerIndex];
+		//// Destroy if figure is already there
+		//if (hookUp.childCount > 0)
+		//{
+		//	Destroy(hookUp.transform.GetChild(0).gameObject);
+		//}
+		//Instantiate(characterPrefabs[playerIndex], hookUp);
+		//_playerNames[playerIndex].text = $"Player {playerIndex + 1}";
 	}
 }
