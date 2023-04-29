@@ -1,9 +1,7 @@
-using System;
 using Character;
 using Events;
-using Events.Input;
+using GameManagers;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 [RequireComponent(typeof(Rigidbody))]
 [RequireComponent(typeof(BoxCollider))]
@@ -42,9 +40,8 @@ public class PickupController : MonoBehaviour
         {
             _player = other.GetComponent<PlayerController>();
             _pickedUp = true;
-            transform.position = other.transform.position;
-            transform.Translate(Vector3.up);
-            transform.parent = other.transform;
+
+            GameManager.Instance.Pickup(other.transform);
         }
         else if (other.gameObject.CompareTag("Home"))
         {

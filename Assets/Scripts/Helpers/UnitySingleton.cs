@@ -20,7 +20,7 @@ namespace Helpers
         {
             get
             {
-                if (_instance == null)
+                if (_instance is null)
                 {
                     _instance = FindObjectOfType<T>();
                     if (_instance == null)

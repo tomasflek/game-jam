@@ -27,7 +27,6 @@ namespace GameManagers
 		private GameObject _pickupPrefab;
 
 		public Dictionary<int, int> PlayerIndexSelectedCharacterPrefabIndex = new();
-		public Action<int, int> PlayerSelectedEvent; 
 		private GameObject _pickup;
 		public bool Paused { get; set; }
 		public GameObject PlayerWithPickup { get; set; }
@@ -109,16 +108,30 @@ namespace GameManagers
 				var randomIndex = random.Next(0, respawns.Length);
 				
 				var player = Instantiate(PlayerPrefab, respawns[randomIndex].transform.position, Quaternion.identity);
+				player.name = playerIndex.ToString();
+				GameObjectIdPlayerIndex[player.GetInstanceID()] = playerIndex;
+				
 				var playerController = player.GetComponent<PlayerController>();
 				playerController.PlayerIndex = playerIndex;
 				var character = Instantiate(charPrefab, respawns[randomIndex].transform.position, Quaternion.identity);
 				character.transform.parent = player.transform;
 			}
+			
+			var pickaupSpawningPoint = GameObject.FindGameObjectWithTag("PickupSpawn");
+			_pickup = Instantiate(_pickupPrefab, pickaupSpawningPoint.transform.position , Quaternion.identity);
 		}
 
 		public void OnDestroy()
 		{
 			EndPlayerRegistry();
+		}
+	
+		public void Pickup(Transform player)
+		{
+			PlayerWithPickup = player.gameObject;
+			_pickup.transform.position = player.transform.position;
+			_pickup.transform.Translate(Vector3.up);
+			_pickup.transform.parent = player.transform;
 		}
 	}
 }

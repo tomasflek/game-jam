@@ -2,13 +2,13 @@ using System.Collections.Generic;
 using Character;
 using Events;
 using Events.Input;
-using GameManagers;
+using Helpers;
 using Inputs;
 using UnityEngine;
 
-namespace Assets.Scripts.GameManagers
+namespace GameManagers
 {
-	public class BattleManager : MonoBehaviour
+	public class BattleManager : UnitySingleton<BattleManager>
 	{
 		public int ComboCounter = 5;
 		public float AiPressTimerMin = 0.5f;
@@ -18,8 +18,10 @@ namespace Assets.Scripts.GameManagers
 		public Camera battleCamera;
 
 		private bool _isBattling;
-		[SerializeField] private Transform _playerOneFightPosition;
-		[SerializeField] private Transform _playerTwoFightPosition;
+		[SerializeField]
+		private Transform _playerOneFightPosition;
+		[SerializeField] 
+		private Transform _playerTwoFightPosition;
 		public Canvas BattleCanvas;
 		public GameObject PlayerOnePanel;
 		public GameObject PlayerTwoPanel;
@@ -86,18 +88,19 @@ namespace Assets.Scripts.GameManagers
 
 			if (_playerOneInput.HasValue)
 			{
-				CheckCombo(PlayerOnePanel, ref _playerOneCurrentCombo, _playerOneControllerIndex, _playerOneInput.Value);
+				CheckCombo(PlayerOnePanel, ref _playerOneCurrentCombo, _playerOneControllerIndex, _playerOne, _playerOneInput.Value);
 			}
 			if (_playerTwoInput.HasValue)
 			{
-				CheckCombo(PlayerTwoPanel, ref _playerTwoCurrentCombo, _playerTwoControllerIndex, _playerTwoInput.Value);
+				CheckCombo(PlayerTwoPanel, ref _playerTwoCurrentCombo, _playerTwoControllerIndex, _playerTwo, _playerTwoInput.Value);
 			}
 
 			_playerOneInput = null;
 			_playerTwoInput = null;
 		}
 
-		private void CheckCombo(GameObject playerPanel, ref int comboIndex, int playerIndex, InputAction inputAction)
+		private void CheckCombo(GameObject playerPanel, ref int comboIndex, int playerIndex, GameObject player,
+		                        InputAction inputAction)
 		{
 			if (_currentCombo[comboIndex] == inputAction)
 			{
@@ -106,6 +109,7 @@ namespace Assets.Scripts.GameManagers
 				if (comboIndex == ComboCounter)
 				{
 					// END BATTLE
+					GameManager.Instance.Pickup(player.transform);
 					EndBattle();
 				}
 			}
@@ -132,6 +136,7 @@ namespace Assets.Scripts.GameManagers
 
 		public void StartBattle(GameObject playerOne, GameObject playerTwo)
 		{
+			GameManager.Instance.Paused = true;
 			_playerOne = playerOne;
 			_playerTwo = playerTwo;
 			_playerOneStartPosition = playerOne.transform.position;
@@ -170,6 +175,7 @@ namespace Assets.Scripts.GameManagers
 			_playerTwo.transform.position = _playerTwoStartPosition;
 			BattleCanvas.gameObject.SetActive(false);
 			EndBattleCamera();
+			GameManager.Instance.Paused = false;
 		}
 
 		private float GetNewAiTimer()
@@ -190,7 +196,7 @@ namespace Assets.Scripts.GameManagers
 		{
 			foreach (Transform child in playerPanel.transform)
 			{
-				Destroy(child.gameObject);
+				Object.Destroy(child.gameObject);
 			}
 			foreach (InputAction inputAction in _currentCombo)
 			{

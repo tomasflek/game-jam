@@ -51,6 +51,9 @@ namespace Character
 
 		IEnumerator LerpPosition(Vector3 targetPosition, float duration)
 		{
+			if (GameManager.Instance.Paused)
+				yield return null;
+
 			_moving = true;
 			var time = 0f;
 			var startPosition = transform.position;
@@ -67,7 +70,8 @@ namespace Character
 
 		private void OnInputKey(InputKeyEvent inputKeyEvent)
 		{
-			if (inputKeyEvent.KeyPress is not KeyPress.Pressed || _moving || inputKeyEvent.ControllerIndex != PlayerIndex)
+			if (inputKeyEvent.KeyPress is not KeyPress.Pressed || _moving ||
+			    inputKeyEvent.ControllerIndex != PlayerIndex)
 				return;
 
 			switch (inputKeyEvent.Action)
@@ -94,6 +98,15 @@ namespace Character
 			StartCoroutine(LerpPosition(destinationPosition, _movementDuration));
 		}
 
+		private void OnTriggerEnter(Collider other)
+		{
+			if (!other.gameObject.CompareTag("Player"))
+				return;
+
+			if (GameManager.Instance.PlayerWithPickup == gameObject)
+				BattleManager.Instance.StartBattle(gameObject, other.gameObject);
+		}
+
 		private bool CanMove(Vector3 targetPosition)
 		{
 			// Check boundaries movement.
@@ -103,17 +116,18 @@ namespace Character
 				return false;
 
 			// Check whether it's possible to move to home (cannot move only to my home)
-			// var home = LayerMask.GetMask("Home");
 			Collider[] hitColliders = Physics.OverlapSphere(targetPosition, 0.5f);
 			foreach (var hitCollider in hitColliders.Where(p => p.CompareTag("Home")))
 			{
 				var playerId = gameObject.GetInstanceID();
 				var homeId = hitCollider.gameObject.GetInstanceID();
-				if (GameManager.Instance.PlayerGameObjectIdHomeGameObjectId.TryGetValue(playerId, out int homeGameObjectId))
+				if (GameManager.Instance.PlayerGameObjectIdHomeGameObjectId.TryGetValue(
+					    playerId, out int homeGameObjectId))
 				{
 					return homeGameObjectId == homeId;
 				}
 			}
+
 			return true;
 		}
 

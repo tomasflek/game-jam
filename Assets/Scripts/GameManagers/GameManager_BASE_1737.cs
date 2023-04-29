@@ -7,6 +7,7 @@ using Helpers;
 using Inputs;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Serialization;
 
 namespace GameManagers
 {
@@ -23,14 +24,8 @@ namespace GameManagers
 		private List<GameObject> _characterPrefabs;
 		[SerializeField]
 		public GameObject PlayerPrefab;
-		[SerializeField]
-		private GameObject _pickupPrefab;
 
 		public Dictionary<int, int> PlayerIndexSelectedCharacterPrefabIndex = new();
-		public Action<int, int> PlayerSelectedEvent; 
-		private GameObject _pickup;
-		public bool Paused { get; set; }
-		public GameObject PlayerWithPickup { get; set; }
 
 		protected override void Awake()
 		{

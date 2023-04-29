@@ -1386,6 +1386,7 @@ MonoBehaviour:
   - {fileID: 919132149155446097, guid: f5ab3653951889e468631b6406ff1610, type: 3}
   - {fileID: 919132149155446097, guid: d323b2b8b0a7dc844984ab7b42a7bb25, type: 3}
   PlayerPrefab: {fileID: 8332830177499122150, guid: aedad5a7d9af061489c1edd3f454bf11, type: 3}
+  _pickupPrefab: {fileID: 151219926686823293, guid: 69ddae0860bd3154bbd74dd7a6d5a7e1, type: 3}
 --- !u!4 &1633770336
 Transform:
   m_ObjectHideFlags: 0

@@ -1,7 +1,6 @@
 using Events;
 using Events.Input;
 using Helpers;
-using UnityEngine;
 using UnityEngine.InputSystem;
 
 namespace Inputs
