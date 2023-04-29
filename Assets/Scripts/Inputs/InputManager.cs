@@ -25,16 +25,18 @@ namespace Inputs
 			_playerInputActions.Player.Up.Enable();
 			_playerInputActions.Player.Right.Enable();
 			_playerInputActions.Player.Down.Enable();
+			_playerInputActions.Player.Start.Enable();
 
 			_playerInputActions.Player.Down.performed += OnDown;
 			_playerInputActions.Player.Right.performed += OnRight;
 			_playerInputActions.Player.Up.performed += OnUp;
 			_playerInputActions.Player.Left.performed += OnLeft;
+			_playerInputActions.Player.Start.performed += OnStart;
 			
-			_playerInputActions.Player.Down.canceled += OnDownReleased;
-			_playerInputActions.Player.Right.canceled += OnRightReleased;
-			_playerInputActions.Player.Up.canceled += OnUpReleased;
-			_playerInputActions.Player.Left.canceled += OnLeftReleased;
+			// _playerInputActions.Player.Down.canceled += OnDownReleased;
+			// _playerInputActions.Player.Right.canceled += OnRightReleased;
+			// _playerInputActions.Player.Up.canceled += OnUpReleased;
+			// _playerInputActions.Player.Left.canceled += OnLeftReleased;
 		}
 
 		private void OnUp(UnityEngine.InputSystem.InputAction.CallbackContext obj)
@@ -59,6 +61,12 @@ namespace Inputs
 		{
 			var controllerType = GetControllerType(obj.control.device);
 			EventManager.Instance.SendEvent(new InputKeyEvent(InputAction.Left, KeyPress.Pressed, obj.control.device.deviceId, controllerType));
+		}
+		
+		private void OnStart(UnityEngine.InputSystem.InputAction.CallbackContext obj)
+		{
+			var controllerType = GetControllerType(obj.control.device);
+			EventManager.Instance.SendEvent(new InputKeyEvent(InputAction.Start, KeyPress.Pressed, obj.control.device.deviceId, controllerType));
 		}
 		
 		private void OnUpReleased(UnityEngine.InputSystem.InputAction.CallbackContext obj)

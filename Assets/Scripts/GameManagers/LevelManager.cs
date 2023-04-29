@@ -7,7 +7,7 @@ namespace GameManagers
     {
         private void Awake()
         {
-            EventManager.Instance.Register<DeliveryEvent>(OnDelivery);
+            
         }
 
         private void OnDelivery(DeliveryEvent obj)

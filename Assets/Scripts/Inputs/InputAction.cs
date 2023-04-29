@@ -6,6 +6,7 @@
 		Right,
 		Up,
 		Down,
+		Start
 	}
 
 	public enum ControllerType

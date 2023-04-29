@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Pickup
   - Home
+  - PlayerSpawn
   layers:
   - Default
   - TransparentFX

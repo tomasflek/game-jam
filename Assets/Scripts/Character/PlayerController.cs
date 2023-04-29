@@ -1,8 +1,10 @@
 using System;
 using System.Collections;
+using System.Linq;
 using ActivationDeactivation;
 using Events;
 using Events.Input;
+using GameManagers;
 using Inputs;
 using Interface;
 using UnityEngine;
@@ -12,12 +14,10 @@ namespace Character
 	[RequireComponent(typeof(Animator))]
 	public class PlayerController : MonoBehaviour, IControllerActivable
 	{
-		[SerializeField]
-		private Vector3 _borders;
+		[SerializeField] private Vector3 _borders;
 
-		[SerializeField]
-		private GameObject _home;
-		
+		[SerializeField] private GameObject _home;
+
 		private Vector3 _movementVector;
 		private Vector3 _sourceMovement;
 		private Animator _animator;
@@ -67,7 +67,6 @@ namespace Character
 
 		private void OnInputKey(InputKeyEvent inputKeyEvent)
 		{
-			Debug.Log(inputKeyEvent.ControllerType);
 			if (inputKeyEvent.KeyPress is not KeyPress.Pressed || _moving)
 				return;
 
@@ -90,10 +89,8 @@ namespace Character
 			var destinationPosition = _movementVector + transform.position;
 			if (!CanMove(destinationPosition))
 				return;
-			
-			_animator.SetTrigger(IsMovingTrigger);
 
-			
+			_animator.SetTrigger(IsMovingTrigger);
 			StartCoroutine(LerpPosition(destinationPosition, _movementDuration));
 		}
 
@@ -105,11 +102,18 @@ namespace Character
 			if (Mathf.Abs(targetPosition.x) >= _borders.x)
 				return false;
 
-			if (Physics.Raycast(transform.position, _movementVector, out var info, 1))
+			// Check whether it's possible to move to home (cannot move only to my home)
+			// var home = LayerMask.GetMask("Home");
+			Collider[] hitColliders = Physics.OverlapSphere(targetPosition, 0.5f);
+			foreach (var hitCollider in hitColliders.Where(p => p.CompareTag("Home")))
 			{
-				// if (info.)
+				var playerId = gameObject.GetInstanceID();
+				var homeId = hitCollider.gameObject.GetInstanceID();
+				if (GameManager.Instance.PlayerGameObjectIdHomeGameObjectId.TryGetValue(playerId, out int homeGameObjectId))
+				{
+					return homeGameObjectId == homeId;
+				}
 			}
-
 			return true;
 		}
 
