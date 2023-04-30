@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using Events;
 using Events.Input;
 using GameManagers;
@@ -189,7 +188,7 @@ namespace Character
 				return false;
 			if (Mathf.Abs(targetPosition.x) >= _borders.x)
 				return false;
-			
+
 			return true;
 		}
 

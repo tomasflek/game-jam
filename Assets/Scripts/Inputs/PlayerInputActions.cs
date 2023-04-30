@@ -71,33 +71,6 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
-                },
-                {
-                    ""name"": ""ListUp"",
-                    ""type"": ""PassThrough"",
-                    ""id"": ""cd47b985-bee3-4343-8fa1-5a67166262cf"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": true
-                },
-                {
-                    ""name"": ""ListDown"",
-                    ""type"": ""PassThrough"",
-                    ""id"": ""e4ee8399-0884-445d-a948-23cdbce3f915"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": true
-                },
-                {
-                    ""name"": ""ListAccept"",
-                    ""type"": ""PassThrough"",
-                    ""id"": ""ae37ea96-826f-4d15-a527-0b1db6677c9e"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": true
                 }
             ],
             ""bindings"": [
@@ -140,7 +113,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""path"": ""<Keyboard>/a"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": ""Keyboard&Mouse"",
                     ""action"": ""Left"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -151,7 +124,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""path"": ""<XInputController>/buttonWest"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": ""Xbox Gamepad"",
                     ""action"": ""Left"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -173,7 +146,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""path"": ""<Keyboard>/w"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": ""Keyboard&Mouse"",
                     ""action"": ""Up"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -184,7 +157,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""path"": ""<XInputController>/buttonNorth"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": ""Xbox Gamepad"",
                     ""action"": ""Up"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -206,7 +179,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""path"": ""<XInputController>/buttonEast"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": ""Xbox Gamepad"",
                     ""action"": ""Right"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -217,7 +190,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""path"": ""<Keyboard>/d"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": ""Keyboard&Mouse"",
                     ""action"": ""Right"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -239,7 +212,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""path"": ""<Keyboard>/enter"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": ""Keyboard&Mouse"",
                     ""action"": ""Start"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -261,47 +234,71 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""path"": ""<XInputController>/start"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": ""Xbox Gamepad"",
                     ""action"": ""Start"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
-                },
+                }
+            ]
+        },
+        {
+            ""name"": ""UI"",
+            ""id"": ""4f553d3d-09ae-4de1-9c42-df786291f191"",
+            ""actions"": [
                 {
-                    ""name"": """",
-                    ""id"": ""e3e4a3ff-aae3-4894-a385-94f861103e36"",
-                    ""path"": """",
-                    ""interactions"": """",
+                    ""name"": ""ListUp"",
+                    ""type"": ""PassThrough"",
+                    ""id"": ""124b579f-bb2d-4bec-90ed-2b42b37a4293"",
+                    ""expectedControlType"": ""Button"",
                     ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Start"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
                 },
                 {
+                    ""name"": ""ListDown"",
+                    ""type"": ""PassThrough"",
+                    ""id"": ""7e7f1782-ffac-4719-a830-a1d77c8d16b9"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""ListAccept"",
+                    ""type"": ""PassThrough"",
+                    ""id"": ""78dd8759-cc23-40af-8fe5-cf32cc93ec05"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                }
+            ],
+            ""bindings"": [
+                {
                     ""name"": """",
-                    ""id"": ""9e60ea5f-2d82-4cd0-b7dd-2f4d13d21a16"",
+                    ""id"": ""e3db0793-8602-4b7e-8625-e709a24d4cdd"",
                     ""path"": ""<Keyboard>/w"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": ""Keyboard&Mouse"",
                     ""action"": ""ListUp"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
                 {
                     ""name"": """",
-                    ""id"": ""8d3fe701-4eef-40c1-abb6-9967ea45a64c"",
+                    ""id"": ""26428020-41e8-4235-9765-a94611f3c521"",
                     ""path"": ""<XInputController>/dpad/up"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": ""Xbox Gamepad"",
                     ""action"": ""ListUp"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
                 {
                     ""name"": """",
-                    ""id"": ""7d9c04ba-d9f0-4e03-91dc-2b74dacf4b77"",
+                    ""id"": ""ff3bc16f-b687-46ed-89ef-d33c64540366"",
                     ""path"": ""<DualShockGamepad>/dpad/up"",
                     ""interactions"": """",
                     ""processors"": """",
@@ -312,18 +309,18 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""9dcab76d-c31e-4501-9ad4-a7b79d3994b5"",
+                    ""id"": ""e761d18d-d4e8-4df4-85bb-4bb76175a101"",
                     ""path"": ""<Keyboard>/s"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": ""Keyboard&Mouse"",
                     ""action"": ""ListDown"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
                 {
                     ""name"": """",
-                    ""id"": ""2994233d-042a-43de-9b22-73112ba82d15"",
+                    ""id"": ""43aeb085-4a02-44dc-8ef4-de890cad2864"",
                     ""path"": ""<DualShockGamepad>/dpad/down"",
                     ""interactions"": """",
                     ""processors"": """",
@@ -334,40 +331,29 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""bbe82073-f916-489b-b7d6-9324466e0194"",
+                    ""id"": ""1b99fe98-d8b7-40e1-9bfd-36068d9edbca"",
                     ""path"": ""<XInputController>/dpad/down"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": ""Xbox Gamepad"",
                     ""action"": ""ListDown"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
                 {
                     ""name"": """",
-                    ""id"": ""c0b7ee77-6469-478c-b4df-ee2ebba548d6"",
-                    ""path"": ""<Keyboard>/space"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""ListAccept"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""00f7117c-4ced-4a33-8b88-923232ebc96d"",
+                    ""id"": ""e02753fe-6bce-48dc-875a-6e2f7617a27c"",
                     ""path"": ""<Keyboard>/enter"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": ""Keyboard&Mouse"",
                     ""action"": ""ListAccept"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
                 {
                     ""name"": """",
-                    ""id"": ""9f0860ea-8746-485a-a1a7-dfeed04572f4"",
+                    ""id"": ""b345125f-ae11-4bf5-8c0b-2a2d86ea44f8"",
                     ""path"": ""<DualShockGamepad>/buttonSouth"",
                     ""interactions"": """",
                     ""processors"": """",
@@ -378,11 +364,11 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""4e132e2e-eac4-4694-9d3b-aad23c3e7b51"",
+                    ""id"": ""a9d09c0f-828a-4e3f-a689-5798024602e2"",
                     ""path"": ""<XInputController>/buttonSouth"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": ""Xbox Gamepad"",
                     ""action"": ""ListAccept"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -460,9 +446,11 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         m_Player_Up = m_Player.FindAction("Up", throwIfNotFound: true);
         m_Player_Right = m_Player.FindAction("Right", throwIfNotFound: true);
         m_Player_Start = m_Player.FindAction("Start", throwIfNotFound: true);
-        m_Player_ListUp = m_Player.FindAction("ListUp", throwIfNotFound: true);
-        m_Player_ListDown = m_Player.FindAction("ListDown", throwIfNotFound: true);
-        m_Player_ListAccept = m_Player.FindAction("ListAccept", throwIfNotFound: true);
+        // UI
+        m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
+        m_UI_ListUp = m_UI.FindAction("ListUp", throwIfNotFound: true);
+        m_UI_ListDown = m_UI.FindAction("ListDown", throwIfNotFound: true);
+        m_UI_ListAccept = m_UI.FindAction("ListAccept", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -529,9 +517,6 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Up;
     private readonly InputAction m_Player_Right;
     private readonly InputAction m_Player_Start;
-    private readonly InputAction m_Player_ListUp;
-    private readonly InputAction m_Player_ListDown;
-    private readonly InputAction m_Player_ListAccept;
     public struct PlayerActions
     {
         private @PlayerInputActions m_Wrapper;
@@ -541,9 +526,6 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         public InputAction @Up => m_Wrapper.m_Player_Up;
         public InputAction @Right => m_Wrapper.m_Player_Right;
         public InputAction @Start => m_Wrapper.m_Player_Start;
-        public InputAction @ListUp => m_Wrapper.m_Player_ListUp;
-        public InputAction @ListDown => m_Wrapper.m_Player_ListDown;
-        public InputAction @ListAccept => m_Wrapper.m_Player_ListAccept;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -568,15 +550,6 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @Start.started += instance.OnStart;
             @Start.performed += instance.OnStart;
             @Start.canceled += instance.OnStart;
-            @ListUp.started += instance.OnListUp;
-            @ListUp.performed += instance.OnListUp;
-            @ListUp.canceled += instance.OnListUp;
-            @ListDown.started += instance.OnListDown;
-            @ListDown.performed += instance.OnListDown;
-            @ListDown.canceled += instance.OnListDown;
-            @ListAccept.started += instance.OnListAccept;
-            @ListAccept.performed += instance.OnListAccept;
-            @ListAccept.canceled += instance.OnListAccept;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -596,15 +569,6 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @Start.started -= instance.OnStart;
             @Start.performed -= instance.OnStart;
             @Start.canceled -= instance.OnStart;
-            @ListUp.started -= instance.OnListUp;
-            @ListUp.performed -= instance.OnListUp;
-            @ListUp.canceled -= instance.OnListUp;
-            @ListDown.started -= instance.OnListDown;
-            @ListDown.performed -= instance.OnListDown;
-            @ListDown.canceled -= instance.OnListDown;
-            @ListAccept.started -= instance.OnListAccept;
-            @ListAccept.performed -= instance.OnListAccept;
-            @ListAccept.canceled -= instance.OnListAccept;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -622,6 +586,68 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         }
     }
     public PlayerActions @Player => new PlayerActions(this);
+
+    // UI
+    private readonly InputActionMap m_UI;
+    private List<IUIActions> m_UIActionsCallbackInterfaces = new List<IUIActions>();
+    private readonly InputAction m_UI_ListUp;
+    private readonly InputAction m_UI_ListDown;
+    private readonly InputAction m_UI_ListAccept;
+    public struct UIActions
+    {
+        private @PlayerInputActions m_Wrapper;
+        public UIActions(@PlayerInputActions wrapper) { m_Wrapper = wrapper; }
+        public InputAction @ListUp => m_Wrapper.m_UI_ListUp;
+        public InputAction @ListDown => m_Wrapper.m_UI_ListDown;
+        public InputAction @ListAccept => m_Wrapper.m_UI_ListAccept;
+        public InputActionMap Get() { return m_Wrapper.m_UI; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(UIActions set) { return set.Get(); }
+        public void AddCallbacks(IUIActions instance)
+        {
+            if (instance == null || m_Wrapper.m_UIActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_UIActionsCallbackInterfaces.Add(instance);
+            @ListUp.started += instance.OnListUp;
+            @ListUp.performed += instance.OnListUp;
+            @ListUp.canceled += instance.OnListUp;
+            @ListDown.started += instance.OnListDown;
+            @ListDown.performed += instance.OnListDown;
+            @ListDown.canceled += instance.OnListDown;
+            @ListAccept.started += instance.OnListAccept;
+            @ListAccept.performed += instance.OnListAccept;
+            @ListAccept.canceled += instance.OnListAccept;
+        }
+
+        private void UnregisterCallbacks(IUIActions instance)
+        {
+            @ListUp.started -= instance.OnListUp;
+            @ListUp.performed -= instance.OnListUp;
+            @ListUp.canceled -= instance.OnListUp;
+            @ListDown.started -= instance.OnListDown;
+            @ListDown.performed -= instance.OnListDown;
+            @ListDown.canceled -= instance.OnListDown;
+            @ListAccept.started -= instance.OnListAccept;
+            @ListAccept.performed -= instance.OnListAccept;
+            @ListAccept.canceled -= instance.OnListAccept;
+        }
+
+        public void RemoveCallbacks(IUIActions instance)
+        {
+            if (m_Wrapper.m_UIActionsCallbackInterfaces.Remove(instance))
+                UnregisterCallbacks(instance);
+        }
+
+        public void SetCallbacks(IUIActions instance)
+        {
+            foreach (var item in m_Wrapper.m_UIActionsCallbackInterfaces)
+                UnregisterCallbacks(item);
+            m_Wrapper.m_UIActionsCallbackInterfaces.Clear();
+            AddCallbacks(instance);
+        }
+    }
+    public UIActions @UI => new UIActions(this);
     private int m_KeyboardMouseSchemeIndex = -1;
     public InputControlScheme KeyboardMouseScheme
     {
@@ -674,6 +700,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         void OnUp(InputAction.CallbackContext context);
         void OnRight(InputAction.CallbackContext context);
         void OnStart(InputAction.CallbackContext context);
+    }
+    public interface IUIActions
+    {
         void OnListUp(InputAction.CallbackContext context);
         void OnListDown(InputAction.CallbackContext context);
         void OnListAccept(InputAction.CallbackContext context);

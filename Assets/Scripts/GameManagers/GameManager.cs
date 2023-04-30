@@ -9,7 +9,6 @@ using Helpers;
 using Inputs;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.Serialization;
 
 namespace GameManagers
 {
@@ -50,7 +49,7 @@ namespace GameManagers
 			var pickupPosition = new Vector3((float)Math.Truncate(x),
 			                                 0,
 			                                 (float)Math.Truncate(z));
-			
+
 			_pickup = Instantiate(_pickupPrefab, pickupPosition, Quaternion.identity);
 		}
 

@@ -18,7 +18,6 @@ public class MainMenu : MonoBehaviour
 	private void Awake()
 	{
 		EventManager.Instance.Register<InputKeyEvent>(ToggleTutorialPanel);
-
 		EventManager.Instance.Register<InputKeyEvent>(MenuControl);
 	}
 

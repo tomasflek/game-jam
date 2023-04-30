@@ -12,6 +12,7 @@ namespace Inputs
 
 		private PlayerInputActions _playerInputActions;
 		private readonly HashSet<(int, InputAction)> _hackSet = new();
+		private readonly HashSet<(int, InputAction)> _hackSetUI = new();
 
 		#endregion
 
@@ -27,18 +28,18 @@ namespace Inputs
 			_playerInputActions.Player.Right.Enable();
 			_playerInputActions.Player.Down.Enable();
 			_playerInputActions.Player.Start.Enable();
-			_playerInputActions.Player.ListUp.Enable();
-			_playerInputActions.Player.ListDown.Enable();
-			_playerInputActions.Player.ListAccept.Enable();
+			_playerInputActions.UI.ListUp.Enable();
+			_playerInputActions.UI.ListDown.Enable();
+			_playerInputActions.UI.ListAccept.Enable();
 
 			_playerInputActions.Player.Down.performed += OnDown;
 			_playerInputActions.Player.Right.performed += OnRight;
 			_playerInputActions.Player.Up.performed += OnUp;
 			_playerInputActions.Player.Left.performed += OnLeft;
 			_playerInputActions.Player.Start.performed += OnStart;
-			_playerInputActions.Player.ListUp.performed += OnListUp;
-			_playerInputActions.Player.ListDown.performed += OnListDown;
-			_playerInputActions.Player.ListAccept.performed += OnListAccept;
+			_playerInputActions.UI.ListUp.performed += OnListUp;
+			_playerInputActions.UI.ListDown.performed += OnListDown;
+			_playerInputActions.UI.ListAccept.performed += OnListAccept;
 		}
 
 		private void OnUp(UnityEngine.InputSystem.InputAction.CallbackContext obj)
@@ -68,17 +69,17 @@ namespace Inputs
 
 		private void OnListUp(UnityEngine.InputSystem.InputAction.CallbackContext obj)
 		{
-			SendConditionallyEvent(InputAction.ListUp, obj.control.device);
+			SendConditionallyEventUI(InputAction.ListUp, obj.control.device);
 		}
 
 		private void OnListDown(UnityEngine.InputSystem.InputAction.CallbackContext obj)
 		{
-			SendConditionallyEvent(InputAction.ListDown, obj.control.device);
+			SendConditionallyEventUI(InputAction.ListDown, obj.control.device);
 		}
 
 		private void OnListAccept(UnityEngine.InputSystem.InputAction.CallbackContext obj)
 		{
-			SendConditionallyEvent(InputAction.ListAccept, obj.control.device);
+			SendConditionallyEventUI(InputAction.ListAccept, obj.control.device);
 		}
 
 		private void SendConditionallyEvent(InputAction action, InputDevice inputDevice)
@@ -92,6 +93,20 @@ namespace Inputs
 			else
 			{
 				_hackSet.Remove((inputDevice.deviceId, action));
+			}
+		}
+		
+		private void SendConditionallyEventUI(InputAction action, InputDevice inputDevice)
+		{
+			if (!_hackSetUI.Contains((inputDevice.deviceId, action)))
+			{
+				_hackSetUI.Add((inputDevice.deviceId, action));
+				var controllerType = GetControllerType(inputDevice);
+				EventManager.Instance.SendEvent(new InputKeyEventUI(action, inputDevice.deviceId, controllerType));				
+			}
+			else
+			{
+				_hackSetUI.Remove((inputDevice.deviceId, action));
 			}
 		}
 		

@@ -16,7 +16,6 @@ namespace Events.Input
 		public int ControllerIndex { get; }
 		public ControllerType ControllerType { get; }
 		
-		
 		public InputKeyEvent(InputAction action, int controllerIndex, ControllerType controllerType)
 		{
 			Action = action;
