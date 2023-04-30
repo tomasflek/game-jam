@@ -13,12 +13,18 @@ public class UIManager : UnitySingleton<UIManager>
 
 	public GameObject GetComboButton(InputAction inputAction, ControllerType controllerType)
 	{
-		Sprite sprite = inputList
-						.FirstOrDefault(i => i.inputAction == inputAction && i.controllerType == controllerType)
-						.sprite;
-		GameObject go = GameObject.Instantiate(BattleControlImagePrefab);
+		var sprite = GetSprite(inputAction, controllerType);
+		GameObject go = Instantiate(BattleControlImagePrefab);
 		go.GetComponent<Image>().sprite = sprite;
 		return go;
+	}
+
+	public Sprite GetSprite(InputAction inputAction, ControllerType controllerType)
+	{
+		Sprite sprite = inputList
+		                .FirstOrDefault(i => i.inputAction == inputAction && i.controllerType == controllerType)
+		                .sprite;
+		return sprite;
 	}
 }
 
@@ -28,6 +34,4 @@ public struct ActionSpritePair
 	public InputAction inputAction;
 	public ControllerType controllerType;
 	public Sprite sprite;
-
-
 }

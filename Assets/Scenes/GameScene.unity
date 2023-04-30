@@ -2287,7 +2287,7 @@ MonoBehaviour:
     sprite: {fileID: -62165376, guid: b3f8f218b6621664f8d47a1e7f7f1ed5, type: 3}
   - inputAction: 0
     controllerType: 1
-    sprite: {fileID: 556241395, guid: b3f8f218b6621664f8d47a1e7f7f1ed5, type: 3}
+    sprite: {fileID: 1859408569, guid: b3f8f218b6621664f8d47a1e7f7f1ed5, type: 3}
   - inputAction: 1
     controllerType: 1
     sprite: {fileID: 1082908294, guid: b3f8f218b6621664f8d47a1e7f7f1ed5, type: 3}
