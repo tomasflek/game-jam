@@ -23,6 +23,7 @@ namespace GameManagers
 
 		[SerializeField] public List<GameObject> CharacterPrefabs;
 		[SerializeField] private GameObject _playerPrefab;
+		[SerializeField] private GameObject _aiPrefab;
 		[SerializeField] private GameObject _pickupPrefab;
 		[SerializeField] private GameObject _homePrefab;
 		
@@ -69,9 +70,7 @@ namespace GameManagers
 			if (inputKeyEvent.Action == InputAction.Start)
 			{
 				// Start the game.
-				if (PlayerIndexType.Any())
-					GameStart();
-
+				GameStart();
 				return;
 			}
 
@@ -138,9 +137,24 @@ namespace GameManagers
 				character.transform.parent = player.transform;
 				playerSpawns.Remove(respawnPoint);
 			}
+			// SPAWN SOME AI
+			int aiCount = 4 - PlayerIndexSelectedCharacterPrefabIndex.Count;
+			for (int i = 0; i < aiCount; i++)
+			{
+				// get random respawn point
+				var random = new System.Random();
+				var randomIndex = random.Next(0, playerSpawns.Count);
+				var respawnPoint = playerSpawns[randomIndex];
+				var ai = Instantiate(_aiPrefab, respawnPoint.transform.position, Quaternion.identity);
+
+				int charIndex = random.Next(0, CharacterPrefabs.Count);
+				var character = Instantiate(CharacterPrefabs[charIndex], Vector3.zero, Quaternion.identity);
+				character.transform.SetParent(ai.transform, false);
+				playerSpawns.Remove(respawnPoint);
+			}
 
 			// spawn a home for the player
-			
+
 			Instantiate(_homePrefab, homeSpawn.transform.position, Quaternion.identity);
 			
 			// Spawn pickup

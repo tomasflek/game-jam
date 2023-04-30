@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Events;
 using Events.Input;
 using GameManagers;
@@ -12,7 +13,7 @@ using Random = UnityEngine.Random;
 namespace Character
 {
 	[RequireComponent(typeof(Animator))]
-	public class PlayerController : MonoBehaviour
+	public class AIController : MonoBehaviour
 	{
 		[SerializeField] private Vector3 _borders;
 
@@ -22,6 +23,13 @@ namespace Character
 		private static readonly int IsMovingTrigger = Animator.StringToHash("IsMovingTrigger");
 		private float _movementDuration;
 		private bool _moving;
+
+		[SerializeField]
+		private float AiMoveMin = 0.3f;
+		[SerializeField]
+		private float AiMoveMAx = 0.8f;
+		private float aiMoveRemain;
+
 
 		private Dictionary<InputAction, Vector3> _movementVectorDict = new()
 		{
@@ -40,18 +48,16 @@ namespace Character
 		{
 			_animator = GetComponent<Animator>();
 			_movementDuration = GetMovementDuration();
-			EventManager.Instance.Register<InputKeyEvent>(OnInputKey);
-			_iconChnager = GetComponent<MovementImageIconsController>();
 		}
 
 		private void Start()
 		{
-			GenerateMovementVectors(false);
+			SetAiMoveRemain();
 		}
 
-		private void OnDestroy()
+		private void SetAiMoveRemain()
 		{
-			EventManager.Instance.Unregister<InputKeyEvent>(OnInputKey);
+			aiMoveRemain = Random.Range(AiMoveMin, AiMoveMAx);
 		}
 
 		private float GetMovementDuration()
@@ -72,7 +78,7 @@ namespace Character
 		IEnumerator LerpPosition(Vector3 targetPosition, float duration)
 		{
 			if (GameManager.Instance.Paused)
-				yield return null;
+				yield return null;			
 
 			_moving = true;
 			var time = 0f;
@@ -87,57 +93,6 @@ namespace Character
 			transform.position = targetPosition;
 			_moving = false;
 			_movementVector = Vector3.zero;
-			GenerateMovementVectors(!_firstMovenemt);
-		}
-
-		public void GenerateMovementVectors(bool random)
-		{
-			//random = false;
-			var controllerType = GameManager.Instance.PlayerIndexType[PlayerIndex];
-			var movementVectors = new List<Vector3>()
-			{
-				Vector3.left, Vector3.right, Vector3.forward, Vector3.back
-			};
-
-			Dictionary<InputAction, Image> super = new()
-			{
-				{ InputAction.Left, _iconChnager.ImageLeft },
-				{ InputAction.Right, _iconChnager.ImageRight },
-				{ InputAction.Up, _iconChnager.ImageUp },
-				{ InputAction.Down, _iconChnager.ImageDown },
-			};
-
-			// LEFT
-			var index = random ? Random.Range(0, movementVectors.Count) : 0;
-			_movementVectorDict[InputAction.Left] = movementVectors[index];
-			var newInputAction = GetInputActionFromMovementVector(movementVectors[index]);
-			var sprite = UIManager.Instance.GetSprite(InputAction.Left, controllerType);
-			super[newInputAction].sprite = sprite;
-			movementVectors.RemoveAt(index);
-
-			// RIGHT
-			index = random ? Random.Range(0, movementVectors.Count) : 0;
-			_movementVectorDict[InputAction.Right] = movementVectors[index];
-			newInputAction = GetInputActionFromMovementVector(movementVectors[index]);
-			sprite = UIManager.Instance.GetSprite(InputAction.Right, controllerType);
-			super[newInputAction].sprite = sprite;
-			movementVectors.RemoveAt(index);
-
-			// UP
-			index = random ? Random.Range(0, movementVectors.Count) : 0;
-			_movementVectorDict[InputAction.Up] = movementVectors[index];
-			newInputAction = GetInputActionFromMovementVector(movementVectors[index]);
-			sprite = UIManager.Instance.GetSprite(InputAction.Up, controllerType);
-			super[newInputAction].sprite = sprite;
-			movementVectors.RemoveAt(index);
-
-			// DOWN
-			index = random ? Random.Range(0, movementVectors.Count) : 0;
-			_movementVectorDict[InputAction.Down] = movementVectors[index];
-			newInputAction = GetInputActionFromMovementVector(movementVectors[index]);
-			sprite = UIManager.Instance.GetSprite(InputAction.Down, controllerType);
-			super[newInputAction].sprite = sprite;
-			movementVectors.RemoveAt(index);
 		}
 
 		private InputAction GetInputActionFromMovementVector(Vector3 vector)
@@ -153,16 +108,18 @@ namespace Character
 			throw new Exception();
 		}
 
-		private void OnInputKey(InputKeyEvent inputKeyEvent)
+		private void Update()
 		{
-			if (_moving || inputKeyEvent.ControllerIndex != PlayerIndex || GameManager.Instance.Paused)
+			if (_moving || GameManager.Instance.Paused)
 				return;
 
-			if (inputKeyEvent.Action is InputAction.Start)
-				return;
+			aiMoveRemain -= Time.deltaTime;
+			if (aiMoveRemain > 0) return;
+			SetAiMoveRemain();
 
-			_firstMovenemt = false;
-			_movementVector = _movementVectorDict[inputKeyEvent.Action];
+			int index = Random.Range(0, _movementVectorDict.Count);
+			var action = _movementVectorDict.Keys.ToList()[index];
+			_movementVector = _movementVectorDict[action];
 
 			var destinationPosition = _movementVector + transform.position;
 			if (!CanMove(destinationPosition))
@@ -188,10 +145,8 @@ namespace Character
 				return false;
 			if (Mathf.Abs(targetPosition.x) >= _borders.x)
 				return false;
-
+			
 			return true;
 		}
-
-		public int PlayerIndex { get; set; }
 	}
 }

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using Character;
 using Events;
 using Events.Input;
@@ -47,6 +48,9 @@ namespace GameManagers
 		public GameObject playerOneMock;
 		public GameObject playerTwoMock;
 
+		private Transform playerOneModel;
+		private Transform playerTwoModel;
+
 		protected override void Awake()
 		{
 			base.Awake();
@@ -90,19 +94,18 @@ namespace GameManagers
 
 			if (_playerOneInput.HasValue)
 			{
-				CheckCombo(PlayerOnePanel, ref _playerOneCurrentCombo, _playerOneControllerIndex, _playerOne, _playerOneInput.Value);
+				CheckCombo(PlayerOnePanel, ref _playerOneCurrentCombo, _playerOneControllerIndex, _playerOne, _playerOneInput.Value, _playerTwo);
 			}
 			if (_playerTwoInput.HasValue)
 			{
-				CheckCombo(PlayerTwoPanel, ref _playerTwoCurrentCombo, _playerTwoControllerIndex, _playerTwo, _playerTwoInput.Value);
+				CheckCombo(PlayerTwoPanel, ref _playerTwoCurrentCombo, _playerTwoControllerIndex, _playerTwo, _playerTwoInput.Value, _playerOne);
 			}
 
 			_playerOneInput = null;
 			_playerTwoInput = null;
 		}
 
-		private void CheckCombo(GameObject playerPanel, ref int comboIndex, int playerIndex, GameObject player,
-		                        InputAction inputAction)
+		private void CheckCombo(GameObject playerPanel, ref int comboIndex, int playerIndex, GameObject player, InputAction inputAction, GameObject otherPlayer)
 		{
 			if (_currentCombo[comboIndex] == inputAction)
 			{
@@ -112,7 +115,7 @@ namespace GameManagers
 				{
 					// END BATTLE
 					GameManager.Instance.Pickup(player.transform);
-					EndBattle();
+					EndBattle(otherPlayer);
 				}
 			}
 			else
@@ -143,12 +146,19 @@ namespace GameManagers
 			_playerTwo = playerTwo;
 			_playerOneStartPosition = playerOne.transform.position;
 			_playerTwoStartPosition = playerTwo.transform.position;
-			_playerOne.transform.position = _playerOneFightPosition.position;
-			_playerTwo.transform.position = _playerTwoFightPosition.position;
-			BattleCanvas.gameObject.SetActive(true);
-			EventManager.Instance.Register<InputKeyEvent>(OnInputKey);
 			_playerOneAi = playerOne.GetComponent<PlayerController>() == null;
 			_playerTwoAi = playerTwo.GetComponent<PlayerController>() == null;
+			int index1 = _playerOneAi ? 0 : 1; // tohle neni uplne dobry
+			int index2 = _playerTwoAi ? 0 : 1; // tohle neni uplne dobry
+			playerOneModel = _playerOne.transform.GetChild(index1).transform; 
+			playerTwoModel = _playerTwo.transform.GetChild(index2).transform; 
+			playerOneModel.transform.SetParent(_playerOneFightPosition, false);
+			playerTwoModel.transform.SetParent(_playerTwoFightPosition, false);
+			//_playerOne.transform.position = _playerOneFightPosition.position;
+			//_playerTwo.transform.position = _playerTwoFightPosition.position;
+			BattleCanvas.gameObject.SetActive(true);
+			EventManager.Instance.Register<InputKeyEvent>(OnInputKey);
+			
 			if (_playerOneAi)
 				_playerOneAiTimer = GetNewAiTimer();
 			if (_playerTwoAi)
@@ -173,12 +183,19 @@ namespace GameManagers
 			_isBattling = true;
 		}
 
-		public void EndBattle()
+		public void EndBattle(GameObject loser)
 		{
 			_isBattling = false;
 			EventManager.Instance.Unregister<InputKeyEvent>(OnInputKey);
-			_playerOne.transform.position = _playerOneStartPosition;
-			_playerTwo.transform.position = _playerTwoStartPosition;
+			//_playerOne.transform.position = _playerOneStartPosition;
+			//_playerTwo.transform.position = _playerTwoStartPosition;
+			playerOneModel.transform.SetParent(_playerOne.transform, false);
+			playerTwoModel.transform.SetParent(_playerTwo.transform, false);
+
+			var playerSpawns = GameObject.FindGameObjectsWithTag("PlayerSpawn").ToList();
+			var respawnPoint = playerSpawns[Random.Range(0, playerSpawns.Count)];
+			loser.transform.position = respawnPoint.transform.position;
+
 			BattleCanvas.gameObject.SetActive(false);
 			EndBattleCamera();
 
