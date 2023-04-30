@@ -119,5 +119,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _borders: {x: 8, y: 0, z: 8}
+  _randomChance: 30
   AiMoveMin: 0.1
   AiMoveMAx: 0.8

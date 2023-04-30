@@ -138,7 +138,7 @@ namespace Character
 			aiMoveRemain -= Time.deltaTime;
 			if (aiMoveRemain > 0) return;
 			SetAiMoveRemain();
-			bool random = Random.Range(0,100) > _randomChance;
+			bool random = Random.Range(0,100) > 100 - _randomChance;
 
 			if (random)
 			{
