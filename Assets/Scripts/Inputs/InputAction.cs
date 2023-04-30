@@ -6,7 +6,10 @@
 		Right,
 		Up,
 		Down,
-		Start
+		Start,
+		ListUp,
+		ListDown,
+		ListAccept
 	}
 
 	public enum ControllerType

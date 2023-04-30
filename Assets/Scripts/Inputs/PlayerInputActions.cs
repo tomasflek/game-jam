@@ -71,6 +71,33 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""ListUp"",
+                    ""type"": ""PassThrough"",
+                    ""id"": ""cd47b985-bee3-4343-8fa1-5a67166262cf"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""ListDown"",
+                    ""type"": ""PassThrough"",
+                    ""id"": ""e4ee8399-0884-445d-a948-23cdbce3f915"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""ListAccept"",
+                    ""type"": ""PassThrough"",
+                    ""id"": ""ae37ea96-826f-4d15-a527-0b1db6677c9e"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
                 }
             ],
             ""bindings"": [
@@ -249,6 +276,116 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""action"": ""Start"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""9e60ea5f-2d82-4cd0-b7dd-2f4d13d21a16"",
+                    ""path"": ""<Keyboard>/w"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ListUp"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""8d3fe701-4eef-40c1-abb6-9967ea45a64c"",
+                    ""path"": ""<XInputController>/dpad/up"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ListUp"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""7d9c04ba-d9f0-4e03-91dc-2b74dacf4b77"",
+                    ""path"": ""<DualShockGamepad>/dpad/up"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ListUp"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""9dcab76d-c31e-4501-9ad4-a7b79d3994b5"",
+                    ""path"": ""<Keyboard>/s"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ListDown"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""2994233d-042a-43de-9b22-73112ba82d15"",
+                    ""path"": ""<DualShockGamepad>/dpad/down"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ListDown"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""bbe82073-f916-489b-b7d6-9324466e0194"",
+                    ""path"": ""<XInputController>/dpad/down"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ListDown"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""c0b7ee77-6469-478c-b4df-ee2ebba548d6"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ListAccept"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""00f7117c-4ced-4a33-8b88-923232ebc96d"",
+                    ""path"": ""<Keyboard>/enter"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ListAccept"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""9f0860ea-8746-485a-a1a7-dfeed04572f4"",
+                    ""path"": ""<DualShockGamepad>/buttonSouth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ListAccept"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""4e132e2e-eac4-4694-9d3b-aad23c3e7b51"",
+                    ""path"": ""<XInputController>/buttonSouth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ListAccept"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -323,6 +460,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         m_Player_Up = m_Player.FindAction("Up", throwIfNotFound: true);
         m_Player_Right = m_Player.FindAction("Right", throwIfNotFound: true);
         m_Player_Start = m_Player.FindAction("Start", throwIfNotFound: true);
+        m_Player_ListUp = m_Player.FindAction("ListUp", throwIfNotFound: true);
+        m_Player_ListDown = m_Player.FindAction("ListDown", throwIfNotFound: true);
+        m_Player_ListAccept = m_Player.FindAction("ListAccept", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -389,6 +529,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Up;
     private readonly InputAction m_Player_Right;
     private readonly InputAction m_Player_Start;
+    private readonly InputAction m_Player_ListUp;
+    private readonly InputAction m_Player_ListDown;
+    private readonly InputAction m_Player_ListAccept;
     public struct PlayerActions
     {
         private @PlayerInputActions m_Wrapper;
@@ -398,6 +541,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         public InputAction @Up => m_Wrapper.m_Player_Up;
         public InputAction @Right => m_Wrapper.m_Player_Right;
         public InputAction @Start => m_Wrapper.m_Player_Start;
+        public InputAction @ListUp => m_Wrapper.m_Player_ListUp;
+        public InputAction @ListDown => m_Wrapper.m_Player_ListDown;
+        public InputAction @ListAccept => m_Wrapper.m_Player_ListAccept;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -422,6 +568,15 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @Start.started += instance.OnStart;
             @Start.performed += instance.OnStart;
             @Start.canceled += instance.OnStart;
+            @ListUp.started += instance.OnListUp;
+            @ListUp.performed += instance.OnListUp;
+            @ListUp.canceled += instance.OnListUp;
+            @ListDown.started += instance.OnListDown;
+            @ListDown.performed += instance.OnListDown;
+            @ListDown.canceled += instance.OnListDown;
+            @ListAccept.started += instance.OnListAccept;
+            @ListAccept.performed += instance.OnListAccept;
+            @ListAccept.canceled += instance.OnListAccept;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -441,6 +596,15 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @Start.started -= instance.OnStart;
             @Start.performed -= instance.OnStart;
             @Start.canceled -= instance.OnStart;
+            @ListUp.started -= instance.OnListUp;
+            @ListUp.performed -= instance.OnListUp;
+            @ListUp.canceled -= instance.OnListUp;
+            @ListDown.started -= instance.OnListDown;
+            @ListDown.performed -= instance.OnListDown;
+            @ListDown.canceled -= instance.OnListDown;
+            @ListAccept.started -= instance.OnListAccept;
+            @ListAccept.performed -= instance.OnListAccept;
+            @ListAccept.canceled -= instance.OnListAccept;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -510,5 +674,8 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         void OnUp(InputAction.CallbackContext context);
         void OnRight(InputAction.CallbackContext context);
         void OnStart(InputAction.CallbackContext context);
+        void OnListUp(InputAction.CallbackContext context);
+        void OnListDown(InputAction.CallbackContext context);
+        void OnListAccept(InputAction.CallbackContext context);
     }
 }

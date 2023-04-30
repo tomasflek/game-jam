@@ -27,12 +27,18 @@ namespace Inputs
 			_playerInputActions.Player.Right.Enable();
 			_playerInputActions.Player.Down.Enable();
 			_playerInputActions.Player.Start.Enable();
+			_playerInputActions.Player.ListUp.Enable();
+			_playerInputActions.Player.ListDown.Enable();
+			_playerInputActions.Player.ListAccept.Enable();
 
 			_playerInputActions.Player.Down.performed += OnDown;
 			_playerInputActions.Player.Right.performed += OnRight;
 			_playerInputActions.Player.Up.performed += OnUp;
 			_playerInputActions.Player.Left.performed += OnLeft;
 			_playerInputActions.Player.Start.performed += OnStart;
+			_playerInputActions.Player.ListUp.performed += OnListUp;
+			_playerInputActions.Player.ListDown.performed += OnListDown;
+			_playerInputActions.Player.ListAccept.performed += OnListAccept;
 		}
 
 		private void OnUp(UnityEngine.InputSystem.InputAction.CallbackContext obj)
@@ -59,7 +65,22 @@ namespace Inputs
 		{
 			SendConditionallyEvent(InputAction.Start, obj.control.device);
 		}
-		
+
+		private void OnListUp(UnityEngine.InputSystem.InputAction.CallbackContext obj)
+		{
+			SendConditionallyEvent(InputAction.ListUp, obj.control.device);
+		}
+
+		private void OnListDown(UnityEngine.InputSystem.InputAction.CallbackContext obj)
+		{
+			SendConditionallyEvent(InputAction.ListDown, obj.control.device);
+		}
+
+		private void OnListAccept(UnityEngine.InputSystem.InputAction.CallbackContext obj)
+		{
+			SendConditionallyEvent(InputAction.ListAccept, obj.control.device);
+		}
+
 		private void SendConditionallyEvent(InputAction action, InputDevice inputDevice)
 		{
 			if (!_hackSet.Contains((inputDevice.deviceId, action)))
