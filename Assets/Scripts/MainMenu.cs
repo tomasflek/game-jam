@@ -20,6 +20,18 @@ public class MainMenu : MonoBehaviour
 		EventManager.Instance.Unregister<InputKeyEvent>(ToggleTutorialPanel);
 	}
 
+	private void Start()
+	{
+		AudioManager.Instance.PlayMusicSound("PostmanBattle", false);
+		AudioManager.Instance.MusicEnd += PlayNextMainTheme;
+	}
+
+	private void PlayNextMainTheme()
+	{
+		AudioManager.Instance.MusicEnd -= PlayNextMainTheme;
+		AudioManager.Instance.PlayMusicSound("MenuMusic", true);
+	}
+
 	public void SwitchToScene(string sceneName)
 	{
 		SceneManager.LoadScene(sceneName);
