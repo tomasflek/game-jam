@@ -33,7 +33,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 16
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &6491313626644771949
 MonoBehaviour:
@@ -61,6 +61,8 @@ MonoBehaviour:
     Clip: {fileID: 8300000, guid: aab8f2e6c3ffd2e4b8417c3a3d29980b, type: 3}
   - Name: ThemeMusic
     Clip: {fileID: 8300000, guid: 4d92ed3012425de458b0993c1682ba25, type: 3}
+  - Name: BattleMusic
+    Clip: {fileID: 8300000, guid: e9a9015875460be49a055c69222b2a07, type: 3}
   _characterSounds:
   - Name: 0Pickup
     Clips:
@@ -90,6 +92,24 @@ MonoBehaviour:
     - {fileID: 8300000, guid: 85c97a4606108d64bbbfa7d5ec42c885, type: 3}
     - {fileID: 8300000, guid: 8430e98f140025c4e906366926994950, type: 3}
     - {fileID: 8300000, guid: 5221d790904fac545938ae564e114b97, type: 3}
+  - Name: 0PackagePickup
+    Clips:
+    - {fileID: 8300000, guid: a125acd19f8bcb9479ddb1eaa926b9e2, type: 3}
+    - {fileID: 8300000, guid: 40f38207cb6b79146b9a56f0d6f639e5, type: 3}
+    - {fileID: 8300000, guid: a6f24a0361977594a85aa1a10a88f82f, type: 3}
+  - Name: 1PackagePickup
+    Clips:
+    - {fileID: 8300000, guid: 5e2f1d0f5bc68d843a3f0976e32bc2f7, type: 3}
+    - {fileID: 8300000, guid: f7995a4e545b48a4aae6113f7950ceeb, type: 3}
+  - Name: 2PackagePickup
+    Clips:
+    - {fileID: 8300000, guid: cb2a6b9af9975c94aba47677a7817066, type: 3}
+    - {fileID: 8300000, guid: 66b4c9a9a8a8d5247a88b62efa6b1698, type: 3}
+  - Name: 3PackagePickup
+    Clips:
+    - {fileID: 8300000, guid: d3ae7e8c7a83242428f2a5fda54a08c1, type: 3}
+    - {fileID: 8300000, guid: 4068e0998653f604d990770daae8dd94, type: 3}
+    - {fileID: 8300000, guid: 5225d09e82f57994eb88e49c27873662, type: 3}
 --- !u!82 &470398179335620268
 AudioSource:
   m_ObjectHideFlags: 0

@@ -12,7 +12,7 @@ public class AudioManager : UnitySingleton<AudioManager>
 	[SerializeField] private AudioMixerGroup MixerGroup;
 	[SerializeField] private AudioSource _uiAudioSource;
 	[SerializeField] private AudioSource _musicAudioSource;
-	[SerializeField] private AudioSource _singleAudioSource;
+	[SerializeField] private AudioSource _characterAudioSource;
 
 	[SerializeField] private List<AudioStruct> _uiSounds;
 	[SerializeField] private List<AudioStruct> _musicSounds;
@@ -33,7 +33,7 @@ public class AudioManager : UnitySingleton<AudioManager>
 
 	public void PlayCharacterSound(int characterIndex, string name)
 	{
-		Play($"{characterIndex}{name}", _characterSounds, _musicAudioSource, false);
+		Play($"{characterIndex}{name}", _characterSounds, _characterAudioSource, false);
 	}
 
 	private void Play(string name, List<AudioStruct> audioCollection, AudioSource source, bool loop)

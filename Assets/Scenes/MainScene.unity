@@ -6829,6 +6829,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c6cca9218988df9429e9f850adbf4c04, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!82 &1373491273 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 12150988930792345, guid: 25366a6b142dde545a09ae080d959a7c, type: 3}
+  m_PrefabInstance: {fileID: 6091928209825457931}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1453284200
 GameObject:
   m_ObjectHideFlags: 0
@@ -17402,61 +17407,9 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6491313626644771949, guid: 25366a6b142dde545a09ae080d959a7c, type: 3}
-      propertyPath: MixerGroup
+      propertyPath: _characterAudioSource
       value: 
-      objectReference: {fileID: 24300002, guid: 44d89a516c1cf7f4291fee3d1248647c, type: 2}
-    - target: {fileID: 6491313626644771949, guid: 25366a6b142dde545a09ae080d959a7c, type: 3}
-      propertyPath: _characterSounds.Array.size
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 6491313626644771949, guid: 25366a6b142dde545a09ae080d959a7c, type: 3}
-      propertyPath: _characterSounds.Array.data[0].Name
-      value: 0Pickup
-      objectReference: {fileID: 0}
-    - target: {fileID: 6491313626644771949, guid: 25366a6b142dde545a09ae080d959a7c, type: 3}
-      propertyPath: _characterSounds.Array.data[1].Name
-      value: 1Pickup
-      objectReference: {fileID: 0}
-    - target: {fileID: 6491313626644771949, guid: 25366a6b142dde545a09ae080d959a7c, type: 3}
-      propertyPath: _characterSounds.Array.data[2].Name
-      value: 2Pickup
-      objectReference: {fileID: 0}
-    - target: {fileID: 6491313626644771949, guid: 25366a6b142dde545a09ae080d959a7c, type: 3}
-      propertyPath: _characterSounds.Array.data[3].Name
-      value: 3Pickup
-      objectReference: {fileID: 0}
-    - target: {fileID: 6491313626644771949, guid: 25366a6b142dde545a09ae080d959a7c, type: 3}
-      propertyPath: _characterSounds.Array.data[4].Name
-      value: Pickup
-      objectReference: {fileID: 0}
-    - target: {fileID: 6491313626644771949, guid: 25366a6b142dde545a09ae080d959a7c, type: 3}
-      propertyPath: _characterSounds.Array.data[4].Clips.Array.size
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 6491313626644771949, guid: 25366a6b142dde545a09ae080d959a7c, type: 3}
-      propertyPath: _characterSounds.Array.data[4].Clips.Array.data[0]
-      value: 
-      objectReference: {fileID: 8300000, guid: b2164eedf26db3e489be538c7cba17ba, type: 3}
-    - target: {fileID: 6491313626644771949, guid: 25366a6b142dde545a09ae080d959a7c, type: 3}
-      propertyPath: _characterSounds.Array.data[4].Clips.Array.data[1]
-      value: 
-      objectReference: {fileID: 8300000, guid: d0ff71cd078615c4e9f1c98878567acd, type: 3}
-    - target: {fileID: 6491313626644771949, guid: 25366a6b142dde545a09ae080d959a7c, type: 3}
-      propertyPath: _characterSounds.Array.data[4].Clips.Array.data[2]
-      value: 
-      objectReference: {fileID: 8300000, guid: 081421594459f914f9331fbfb018a181, type: 3}
-    - target: {fileID: 6491313626644771949, guid: 25366a6b142dde545a09ae080d959a7c, type: 3}
-      propertyPath: _characterSounds.Array.data[4].Clips.Array.data[3]
-      value: 
-      objectReference: {fileID: 8300000, guid: 85c97a4606108d64bbbfa7d5ec42c885, type: 3}
-    - target: {fileID: 6491313626644771949, guid: 25366a6b142dde545a09ae080d959a7c, type: 3}
-      propertyPath: _characterSounds.Array.data[4].Clips.Array.data[4]
-      value: 
-      objectReference: {fileID: 8300000, guid: 8430e98f140025c4e906366926994950, type: 3}
-    - target: {fileID: 6491313626644771949, guid: 25366a6b142dde545a09ae080d959a7c, type: 3}
-      propertyPath: _characterSounds.Array.data[4].Clips.Array.data[5]
-      value: 
-      objectReference: {fileID: 8300000, guid: 5221d790904fac545938ae564e114b97, type: 3}
+      objectReference: {fileID: 1373491273}
     - target: {fileID: 7024280662527252488, guid: 25366a6b142dde545a09ae080d959a7c, type: 3}
       propertyPath: m_Name
       value: AudioManager

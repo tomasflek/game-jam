@@ -168,6 +168,8 @@ namespace GameManagers
 
 			SetBattleCamera();
 
+			AudioManager.Instance.PlayMusicSound("BattleMusic", true);
+
 			_isBattling = true;
 		}
 
@@ -179,6 +181,9 @@ namespace GameManagers
 			_playerTwo.transform.position = _playerTwoStartPosition;
 			BattleCanvas.gameObject.SetActive(false);
 			EndBattleCamera();
+
+			AudioManager.Instance.PlayMusicSound("ThemeMusic", true);
+
 			GameManager.Instance.Paused = false;
 		}
 

@@ -1,6 +1,7 @@
 using Character;
 using Events;
 using GameManagers;
+using UnityEditor;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
@@ -37,6 +38,11 @@ public class PickupController : MonoBehaviour
             _pickedUp = true;
 
             GameManager.Instance.Pickup(other.transform);
+			if(GameManager.Instance.PlayerIndexSelectedCharacterPrefabIndex.TryGetValue(int.Parse(other.gameObject.name), out int prefabIndex))
+			{
+				AudioManager.Instance.PlayCharacterSound(prefabIndex, "PackagePickup");
+			}
+
         }
         else if (other.gameObject.CompareTag("Home"))
         {
