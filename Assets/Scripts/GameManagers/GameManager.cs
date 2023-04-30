@@ -29,7 +29,10 @@ namespace GameManagers
 		
 		[SerializeField] private Vector3 _gamePlaneSize = new Vector3(7,0,7);
 
-		private GameObject _pickup;
+		[HideInInspector]
+		public GameObject PickupObject;
+		[HideInInspector]
+		public GameObject Home;
 		public bool Paused { get; set; }
 		public GameObject PlayerWithPickup { get; set; }
 
@@ -43,7 +46,7 @@ namespace GameManagers
 		private void OnDelivery(DeliveryEvent obj)
 		{
 			// remove pickup and spawn a new one.
-			Destroy(_pickup);
+			Destroy(PickupObject);
 
 			var x = UnityEngine.Random.Range(-_gamePlaneSize.x + 1, _gamePlaneSize.x - 1);
 			var z = UnityEngine.Random.Range(-_gamePlaneSize.z + 1, _gamePlaneSize.z - 1);
@@ -51,7 +54,8 @@ namespace GameManagers
 			                                 0,
 			                                 (float)Math.Truncate(z));
 
-			_pickup = Instantiate(_pickupPrefab, pickupPosition, Quaternion.identity);
+			PlayerWithPickup = null;
+			PickupObject = Instantiate(_pickupPrefab, pickupPosition, Quaternion.identity);
 		}
 
 		public void StartPlayerRegistration()
@@ -132,6 +136,7 @@ namespace GameManagers
 				PlayerGameObjectIdPlayerIndex[player.GetInstanceID()] = playerIndex;
 
 				var playerController = player.GetComponent<PlayerController>();
+				playerController.PrefabInt = prefabIndex;
 				playerController.PlayerIndex = playerIndex;
 				var character = Instantiate(charPrefab, playerSpawns[randomIndex].transform.position, Quaternion.identity);
 				character.transform.parent = player.transform;
@@ -149,17 +154,19 @@ namespace GameManagers
 
 				int charIndex = random.Next(0, CharacterPrefabs.Count);
 				var character = Instantiate(CharacterPrefabs[charIndex], Vector3.zero, Quaternion.identity);
+				var aiController = ai.GetComponent<AIController>();
+				aiController.PrefabInt = charIndex;
 				character.transform.SetParent(ai.transform, false);
 				playerSpawns.Remove(respawnPoint);
 			}
 
 			// spawn a home for the player
 
-			Instantiate(_homePrefab, homeSpawn.transform.position, Quaternion.identity);
+			Home = Instantiate(_homePrefab, homeSpawn.transform.position, Quaternion.identity);
 			
 			// Spawn pickup
 			var pickaupSpawningPoint = GameObject.FindGameObjectWithTag("PickupSpawn");
-			_pickup = Instantiate(_pickupPrefab, pickaupSpawningPoint.transform.position, Quaternion.identity);
+			PickupObject = Instantiate(_pickupPrefab, pickaupSpawningPoint.transform.position, Quaternion.identity);
 		}
 
 		private void OnDestroy()
@@ -171,9 +178,9 @@ namespace GameManagers
 		public void Pickup(Transform player)
 		{
 			PlayerWithPickup = player.gameObject;
-			_pickup.transform.position = player.transform.position;
-			_pickup.transform.Translate(Vector3.up);
-			_pickup.transform.parent = player.transform;
+			PickupObject.transform.position = player.transform.position;
+			PickupObject.transform.Translate(Vector3.up);
+			PickupObject.transform.parent = player.transform;
 		}
 	}
 }

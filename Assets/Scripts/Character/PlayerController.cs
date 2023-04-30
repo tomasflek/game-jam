@@ -12,7 +12,7 @@ using Random = UnityEngine.Random;
 namespace Character
 {
 	[RequireComponent(typeof(Animator))]
-	public class PlayerController : MonoBehaviour
+	public class PlayerController : MonoBehaviour, IPrefab
 	{
 		[SerializeField] private Vector3 _borders;
 
@@ -30,6 +30,9 @@ namespace Character
 			{ InputAction.Up, Vector3.forward },
 			{ InputAction.Down, Vector3.back },
 		};
+
+
+		public int PrefabInt { get; set; }
 
 		private MovementImageIconsController _iconChnager;
 

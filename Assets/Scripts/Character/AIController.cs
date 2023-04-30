@@ -13,7 +13,7 @@ using Random = UnityEngine.Random;
 namespace Character
 {
 	[RequireComponent(typeof(Animator))]
-	public class AIController : MonoBehaviour
+	public class AIController : MonoBehaviour, IPrefab
 	{
 		[SerializeField] private Vector3 _borders;
 
@@ -24,6 +24,8 @@ namespace Character
 		private float _movementDuration;
 		private bool _moving;
 
+		[SerializeField]
+		private float _randomChance = 30f;
 		[SerializeField]
 		private float AiMoveMin = 0.3f;
 		[SerializeField]
@@ -38,6 +40,9 @@ namespace Character
 			{ InputAction.Up, Vector3.forward },
 			{ InputAction.Down, Vector3.back },
 		};
+
+
+		public int PrefabInt { get; set; }
 
 		private MovementImageIconsController _iconChnager;
 
@@ -95,17 +100,34 @@ namespace Character
 			_movementVector = Vector3.zero;
 		}
 
-		private InputAction GetInputActionFromMovementVector(Vector3 vector)
+		private Transform GetTarget()
 		{
-			if (vector == Vector3.left)
-				return InputAction.Left;
-			if (vector == Vector3.right)
-				return InputAction.Right;
-			if (vector == Vector3.forward)
-				return InputAction.Up;
-			if (vector == Vector3.back)
-				return InputAction.Down;
-			throw new Exception();
+			if (GameManager.Instance.PlayerWithPickup?.GetInstanceID() == this.gameObject.GetInstanceID())
+			{
+				return GameManager.Instance.Home.transform;
+			}
+			else
+			{
+				return GameManager.Instance.PickupObject?.transform;
+			}
+		}
+
+		private Vector3 GetMoveVector()
+		{
+			Transform target = GetTarget();
+			if (target == null) return Vector3.zero;
+			var destination = transform.position - target.position;
+			Vector3 targetVector;
+			if (Mathf.Abs(destination.x) > Mathf.Abs(destination.z))
+			{
+				targetVector = Vector3.left * destination.x;
+			}
+			else
+			{
+				targetVector = Vector3.back * destination.z;
+			}
+			targetVector.Normalize();
+			return targetVector;
 		}
 
 		private void Update()
@@ -116,10 +138,18 @@ namespace Character
 			aiMoveRemain -= Time.deltaTime;
 			if (aiMoveRemain > 0) return;
 			SetAiMoveRemain();
+			bool random = Random.Range(0,100) > _randomChance;
 
-			int index = Random.Range(0, _movementVectorDict.Count);
-			var action = _movementVectorDict.Keys.ToList()[index];
-			_movementVector = _movementVectorDict[action];
+			if (random)
+			{
+				int index = Random.Range(0, _movementVectorDict.Count);
+				var action = _movementVectorDict.Keys.ToList()[index];
+				_movementVector = _movementVectorDict[action];
+			}
+			else
+			{
+				_movementVector = GetMoveVector();
+			}
 
 			var destinationPosition = _movementVector + transform.position;
 			if (!CanMove(destinationPosition))

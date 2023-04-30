@@ -15,8 +15,9 @@ public class PickupController : MonoBehaviour
 
     private PlayerController _player;
 
-    // Start is called before the first frame update
-    private void Awake()
+
+	// Start is called before the first frame update
+	private void Awake()
     {
         _collider = GetComponent<BoxCollider>();
     }
@@ -38,7 +39,8 @@ public class PickupController : MonoBehaviour
             _pickedUp = true;
 
             GameManager.Instance.Pickup(other.transform);
-			if(GameManager.Instance.PlayerIndexSelectedCharacterPrefabIndex.TryGetValue(int.Parse(other.gameObject.name), out int prefabIndex))
+            int prefabInd = other.GetComponent<IPrefab>().PrefabInt;
+			if(GameManager.Instance.PlayerIndexSelectedCharacterPrefabIndex.TryGetValue(prefabInd, out int prefabIndex))
 			{
 				AudioManager.Instance.PlayCharacterSound(prefabIndex, "PackagePickup");
 			}
@@ -46,7 +48,7 @@ public class PickupController : MonoBehaviour
         }
         else if (other.gameObject.CompareTag("Home"))
         {
-            EventManager.Instance.SendEvent(new DeliveryEvent(_player.Name));
+            EventManager.Instance.SendEvent(new DeliveryEvent(_player?.Name ?? "AI"));
         }
     }
 }
