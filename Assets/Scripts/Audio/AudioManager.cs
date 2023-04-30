@@ -31,9 +31,9 @@ public class AudioManager : UnitySingleton<AudioManager>
 		StartCoroutine(MusicEndCoroutine(_musicAudioSource.clip.length));
 	}
 
-	public void PlaySingleSound(string name)
+	public void PlayCharacterSound(int characterIndex, string name)
 	{
-		Play(name, _characterSounds, _musicAudioSource, false);
+		Play($"{characterIndex}{name}", _characterSounds, _musicAudioSource, false);
 	}
 
 	private void Play(string name, List<AudioStruct> audioCollection, AudioSource source, bool loop)

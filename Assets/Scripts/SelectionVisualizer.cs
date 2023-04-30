@@ -35,9 +35,14 @@ public class SelectionVisualizer : MonoBehaviour
 			int playerIndex = _playerIndices.IndexOf(index.Key);
 			Transform hookup = _playerHookUps[playerIndex];
 			// Destroy if some object already present
-			if (hookup.childCount > 0)
-				Destroy(hookup.GetChild(0).gameObject);
-			Instantiate(characterPrefabs[index.Value], hookup);
+			var oldGameObject = hookup.childCount > 0 ? hookup.GetChild(0).gameObject : null;
+			if (oldGameObject?.name != characterPrefabs[index.Value].name)
+			{
+				if(hookup.childCount > 0)
+					Destroy(oldGameObject);
+				Instantiate(characterPrefabs[index.Value], hookup);
+				AudioManager.Instance.PlayCharacterSound(index.Value, "Pickup");
+			}
 			_playerNames[playerIndex].text = $"Player {playerIndex + 1}";
 		}
 	}

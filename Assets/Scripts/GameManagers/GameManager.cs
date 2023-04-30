@@ -96,6 +96,7 @@ namespace GameManagers
 		{
 			if (SceneManager.GetActiveScene().name != "GameScene")
 			{
+				AudioManager.Instance.PlayMusicSound("ThemeMusic", true);
 				LoadGameScene();
 			}
 		}
