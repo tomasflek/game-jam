@@ -31,7 +31,7 @@ Transform:
   - {fileID: 4618759093180014045}
   - {fileID: 1202147698433523998}
   m_Father: {fileID: 0}
-  m_RootOrder: 15
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1667558415029921525
 PrefabInstance:
@@ -151,6 +151,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: 923e27aaeb152184a89396b2786a5152, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 3fcc4fcec29529644b17f4049b72b5f7, type: 2}
     - target: {fileID: 919132149155446097, guid: 923e27aaeb152184a89396b2786a5152, type: 3}
       propertyPath: m_Name
       value: BaseModel

@@ -95,7 +95,7 @@ namespace Character
 
 		public void GenerateMovementVectors(bool random)
 		{
-			//random = false;
+			random = false;
 			var controllerType = GameManager.Instance.PlayerIndexType[PlayerIndex];
 			var movementVectors = new List<Vector3>()
 			{
