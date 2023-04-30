@@ -1,12 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
 using Events;
-using Events.Input;
 using Inputs;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
 
 public class MainMenu : MonoBehaviour
 {
@@ -17,14 +12,14 @@ public class MainMenu : MonoBehaviour
 
 	private void Awake()
 	{
-		EventManager.Instance.Register<InputKeyEvent>(ToggleTutorialPanel);
-		EventManager.Instance.Register<InputKeyEvent>(MenuControl);
+		EventManager.Instance.Register<InputKeyEventUI>(ToggleTutorialPanel);
+		EventManager.Instance.Register<InputKeyEventUI>(MenuControl);
 	}
 
 	private void OnDestroy()
 	{
-		EventManager.Instance.Unregister<InputKeyEvent>(ToggleTutorialPanel);
-		EventManager.Instance.Unregister<InputKeyEvent>(MenuControl);
+		EventManager.Instance.Unregister<InputKeyEventUI>(ToggleTutorialPanel);
+		EventManager.Instance.Unregister<InputKeyEventUI>(MenuControl);
 	}
 
 	private void Start()
@@ -33,7 +28,7 @@ public class MainMenu : MonoBehaviour
 		AudioManager.Instance.PlayMusicSound("PostmanBattle", false);
 		AudioManager.Instance.MusicEnd += PlayNextMainTheme;
 		//Activate first button
-		MenuControl(new InputKeyEvent(InputAction.ListDown, -1, ControllerType.Keyboard));
+		MenuControl(new InputKeyEventUI(InputAction.ListDown, -1, ControllerType.Keyboard));
 	}
 
 	private void PlayNextMainTheme()
@@ -52,7 +47,7 @@ public class MainMenu : MonoBehaviour
 		TutorialPanel.SetActive(!TutorialPanel.activeSelf);
 	}
 
-	public void ToggleTutorialPanel(InputKeyEvent inputKeyEvent)
+	public void ToggleTutorialPanel(InputKeyEventUI inputKeyEvent)
 	{
 		if (TutorialPanel.activeSelf)
 		{
@@ -60,7 +55,7 @@ public class MainMenu : MonoBehaviour
 		}
 	}
 
-	private void MenuControl(InputKeyEvent inputKeyEvent)
+	private void MenuControl(InputKeyEventUI inputKeyEvent)
 	{
 		if (inputKeyEvent != null )
 		{

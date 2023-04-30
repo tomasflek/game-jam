@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Events;
 using Events.Input;
@@ -40,6 +41,18 @@ namespace Inputs
 			_playerInputActions.UI.ListUp.performed += OnListUp;
 			_playerInputActions.UI.ListDown.performed += OnListDown;
 			_playerInputActions.UI.ListAccept.performed += OnListAccept;
+		}
+
+		private void OnDestroy()
+		{
+			_playerInputActions.Player.Down.performed -= OnDown;
+			_playerInputActions.Player.Right.performed -= OnRight;
+			_playerInputActions.Player.Up.performed -= OnUp;
+			_playerInputActions.Player.Left.performed -= OnLeft;
+			_playerInputActions.Player.Start.performed -= OnStart;
+			_playerInputActions.UI.ListUp.performed -= OnListUp;
+			_playerInputActions.UI.ListDown.performed -= OnListDown;
+			_playerInputActions.UI.ListAccept.performed -= OnListAccept;
 		}
 
 		private void OnUp(UnityEngine.InputSystem.InputAction.CallbackContext obj)
