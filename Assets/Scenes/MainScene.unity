@@ -685,11 +685,11 @@ RectTransform:
   m_Father: {fileID: 374886557}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 200, y: 50}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: 0.5, y: 1}
+  m_AnchorMax: {x: 0.5, y: 1}
+  m_AnchoredPosition: {x: 0, y: -25.89}
+  m_SizeDelta: {x: 394.608, y: 46.2334}
+  m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &372100146
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -712,18 +712,16 @@ MonoBehaviour:
       m_Calls: []
   m_text: 'Hey,
 
-    Hey,
 
-
-    You''re the postman and you should know what to do,
-    but just in case:
+    You''re the postman and you should know what to do, but just
+    in case:
 
 
     Follow the symbols and try not to get confused.
 
 
-    Fetch
-    the box to the post office
+    Fetch the
+    box to the post office
 
 
     If needed, Post Battle over the package by pushing
@@ -739,8 +737,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4278190080
+  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -793,7 +791,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_margin: {x: 0, y: 0, z: 0, w: -311.3727}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -824,7 +822,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &374886557
 RectTransform:
   m_ObjectHideFlags: 0
@@ -843,8 +841,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -26.9}
-  m_SizeDelta: {x: 450, y: 550}
+  m_AnchoredPosition: {x: 0, y: 5.7439}
+  m_SizeDelta: {x: 450, y: 484.7122}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &374886558
 MonoBehaviour:
@@ -859,14 +857,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.49019608}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.9137255}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
+  m_Sprite: {fileID: 21300000, guid: 58c359e5dce839c46840a480c5cb3c8d, type: 3}
   m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
