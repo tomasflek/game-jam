@@ -29,7 +29,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             ""actions"": [
                 {
                     ""name"": ""Down"",
-                    ""type"": ""Button"",
+                    ""type"": ""PassThrough"",
                     ""id"": ""c1c26237-d75d-4834-b3f8-f9209afb4933"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
@@ -38,7 +38,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": ""Left"",
-                    ""type"": ""Button"",
+                    ""type"": ""PassThrough"",
                     ""id"": ""f171d3a5-ab0c-4d4c-83d1-350eb898ff52"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
@@ -47,7 +47,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": ""Up"",
-                    ""type"": ""Button"",
+                    ""type"": ""PassThrough"",
                     ""id"": ""0628ded1-a17e-486b-a070-983a7db9bc4a"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
@@ -56,7 +56,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": ""Right"",
-                    ""type"": ""Button"",
+                    ""type"": ""PassThrough"",
                     ""id"": ""901a88a6-44a4-4f84-b8ca-4e983a2d150b"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
@@ -65,7 +65,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": ""Start"",
-                    ""type"": ""Button"",
+                    ""type"": ""PassThrough"",
                     ""id"": ""b08939c5-182f-469b-a76f-16b7ca471bd1"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",

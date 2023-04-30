@@ -146,7 +146,7 @@ namespace GameManagers
 			_playerOne.transform.position = _playerOneFightPosition.position;
 			_playerTwo.transform.position = _playerTwoFightPosition.position;
 			BattleCanvas.gameObject.SetActive(true);
-			ActivateController(this);
+			EventManager.Instance.Register<InputKeyEvent>(OnInputKey);
 			_playerOneAi = playerOne.GetComponent<PlayerController>() == null;
 			_playerTwoAi = playerTwo.GetComponent<PlayerController>() == null;
 			if (_playerOneAi)
@@ -174,7 +174,7 @@ namespace GameManagers
 		public void EndBattle()
 		{
 			_isBattling = false;
-			DeactivateController(this);
+			EventManager.Instance.Unregister<InputKeyEvent>(OnInputKey);
 			_playerOne.transform.position = _playerOneStartPosition;
 			_playerTwo.transform.position = _playerTwoStartPosition;
 			BattleCanvas.gameObject.SetActive(false);
@@ -210,15 +210,11 @@ namespace GameManagers
 				}
 				GameObject button = UIManager.Instance.GetComboButton(inputAction, controllerType);
 				button.transform.SetParent(playerPanel.transform, false);
-
 			}
 		}
 
 		private void OnInputKey(InputKeyEvent inputKeyEvent)
 		{
-			if (inputKeyEvent.KeyPress is not KeyPress.Pressed)
-				return;
-
 			if (_playerOneControllerIndex == inputKeyEvent.ControllerIndex)
 			{
 				_playerOneInput = inputKeyEvent.Action;
@@ -227,16 +223,6 @@ namespace GameManagers
 			{
 				_playerTwoInput = inputKeyEvent.Action;
 			}
-		}
-
-		public void ActivateController(object activator)
-		{
-			EventManager.Instance.Register<InputKeyEvent>(OnInputKey);
-		}
-
-		public void DeactivateController(object deactivator)
-		{
-			EventManager.Instance.Unregister<InputKeyEvent>(OnInputKey);
 		}
 	}
 }

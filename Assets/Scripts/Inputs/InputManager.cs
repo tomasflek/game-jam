@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Events;
 using Events.Input;
 using Helpers;
@@ -10,6 +11,7 @@ namespace Inputs
 		#region Fields
 
 		private PlayerInputActions _playerInputActions;
+		private readonly HashSet<(int, InputAction)> _hackSet = new();
 
 		#endregion
 
@@ -31,67 +33,46 @@ namespace Inputs
 			_playerInputActions.Player.Up.performed += OnUp;
 			_playerInputActions.Player.Left.performed += OnLeft;
 			_playerInputActions.Player.Start.performed += OnStart;
-
-			// _playerInputActions.Player.Down.canceled += OnDownReleased;
-			// _playerInputActions.Player.Right.canceled += OnRightReleased;
-			// _playerInputActions.Player.Up.canceled += OnUpReleased;
-			// _playerInputActions.Player.Left.canceled += OnLeftReleased;
 		}
 
 		private void OnUp(UnityEngine.InputSystem.InputAction.CallbackContext obj)
 		{
-			var controllerType = GetControllerType(obj.control.device);
-			EventManager.Instance.SendEvent(new InputKeyEvent(InputAction.Up, KeyPress.Pressed, obj.control.device.deviceId, controllerType));
+			 SendConditionallyEvent(InputAction.Up, obj.control.device);
 		}
 
 		private void OnRight(UnityEngine.InputSystem.InputAction.CallbackContext obj)
 		{
-			var controllerType = GetControllerType(obj.control.device);
-			EventManager.Instance.SendEvent(new InputKeyEvent(InputAction.Right, KeyPress.Pressed, obj.control.device.deviceId, controllerType));
+			SendConditionallyEvent(InputAction.Right, obj.control.device);
 		}
 
 		private void OnDown(UnityEngine.InputSystem.InputAction.CallbackContext obj)
 		{
-			var controllerType = GetControllerType(obj.control.device);
-			EventManager.Instance.SendEvent(new InputKeyEvent(InputAction.Down, KeyPress.Pressed, obj.control.device.deviceId, controllerType));
+			SendConditionallyEvent(InputAction.Down, obj.control.device);
 		}
 
 		private void OnLeft(UnityEngine.InputSystem.InputAction.CallbackContext obj)
 		{
-			var controllerType = GetControllerType(obj.control.device);
-			EventManager.Instance.SendEvent(new InputKeyEvent(InputAction.Left, KeyPress.Pressed, obj.control.device.deviceId, controllerType));
+			SendConditionallyEvent(InputAction.Left, obj.control.device);
 		}
-		
+
 		private void OnStart(UnityEngine.InputSystem.InputAction.CallbackContext obj)
 		{
-			var controllerType = GetControllerType(obj.control.device);
-			EventManager.Instance.SendEvent(new InputKeyEvent(InputAction.Start, KeyPress.Pressed, obj.control.device.deviceId, controllerType));
+			SendConditionallyEvent(InputAction.Start, obj.control.device);
 		}
 		
-		// private void OnUpReleased(UnityEngine.InputSystem.InputAction.CallbackContext obj)
-		// {
-		// 	var controllerType = GetControllerType(obj.control.device);
-		// 	EventManager.Instance.SendEvent(new InputKeyEvent(InputAction.Up, KeyPress.Released, obj.control.device.deviceId, controllerType));
-		// }
-		//
-		// private void OnRightReleased(UnityEngine.InputSystem.InputAction.CallbackContext obj)
-		// {
-		// 	var controllerType = GetControllerType(obj.control.device);
-		// 	EventManager.Instance.SendEvent(new InputKeyEvent(InputAction.Right, KeyPress.Released, obj.control.device.deviceId, controllerType));
-		// }
-		//
-		// private void OnDownReleased(UnityEngine.InputSystem.InputAction.CallbackContext obj)
-		// {
-		// 	var controllerType = GetControllerType(obj.control.device);
-		// 	EventManager.Instance.SendEvent(new InputKeyEvent(InputAction.Down, KeyPress.Released, obj.control.device.deviceId,controllerType));
-		// }
-		//
-		// private void OnLeftReleased(UnityEngine.InputSystem.InputAction.CallbackContext obj)
-		// {
-		// 	var controllerType = GetControllerType(obj.control.device);
-		// 	EventManager.Instance.SendEvent(new InputKeyEvent(InputAction.Left, KeyPress.Released, obj.control.device.deviceId, controllerType));
-		// }
-		
+		private void SendConditionallyEvent(InputAction action, InputDevice inputDevice)
+		{
+			if (!_hackSet.Contains((inputDevice.deviceId, action)))
+			{
+				_hackSet.Add((inputDevice.deviceId, action));
+				var controllerType = GetControllerType(inputDevice);
+				EventManager.Instance.SendEvent(new InputKeyEvent(action, inputDevice.deviceId, controllerType));				
+			}
+			else
+			{
+				_hackSet.Remove((inputDevice.deviceId, action));
+			}
+		}
 		
 		private ControllerType GetControllerType(InputDevice device)
 		{

@@ -69,8 +69,7 @@ namespace Character
 
 		private void OnInputKey(InputKeyEvent inputKeyEvent)
 		{
-			if (inputKeyEvent.KeyPress is not KeyPress.Pressed || _moving ||
-			    inputKeyEvent.ControllerIndex != PlayerIndex || GameManager.Instance.Paused)
+			if ( _moving || inputKeyEvent.ControllerIndex != PlayerIndex || GameManager.Instance.Paused)
 				return;
 
 			if (inputKeyEvent.Action is InputAction.Start)
