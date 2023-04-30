@@ -33,7 +33,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 16
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &6491313626644771949
 MonoBehaviour:
@@ -50,7 +50,7 @@ MonoBehaviour:
   MixerGroup: {fileID: 24300002, guid: 44d89a516c1cf7f4291fee3d1248647c, type: 2}
   _uiAudioSource: {fileID: 470398179335620268}
   _musicAudioSource: {fileID: 1700329111095464429}
-  _singleAudioSource: {fileID: 12150988930792345}
+  _characterAudioSource: {fileID: 12150988930792345}
   _uiSounds:
   - Name: ButtonHover
     Clip: {fileID: 8300000, guid: 5f9b3510a7a04a34d93a9ea1e2992156, type: 3}
@@ -92,6 +92,15 @@ MonoBehaviour:
     - {fileID: 8300000, guid: 85c97a4606108d64bbbfa7d5ec42c885, type: 3}
     - {fileID: 8300000, guid: 8430e98f140025c4e906366926994950, type: 3}
     - {fileID: 8300000, guid: 5221d790904fac545938ae564e114b97, type: 3}
+  - Name: 4Pickup
+    Clips:
+    - {fileID: 8300000, guid: ae7de6f973239f74d9eb1c129cbcccb6, type: 3}
+    - {fileID: 8300000, guid: 88d77fd8ad20bf04989b5cdf33770484, type: 3}
+    - {fileID: 8300000, guid: 39c534a90803cd742990a85457ced132, type: 3}
+    - {fileID: 8300000, guid: b291d0c561e221543ae2f2d061385b2f, type: 3}
+    - {fileID: 8300000, guid: caa321919824b72449045a001255b6c7, type: 3}
+    - {fileID: 8300000, guid: cf37efc42f545474e89ba5b8e2de00fd, type: 3}
+    - {fileID: 8300000, guid: 55808f3d3e22b824a8c0463df782554f, type: 3}
   - Name: 0PackagePickup
     Clips:
     - {fileID: 8300000, guid: a125acd19f8bcb9479ddb1eaa926b9e2, type: 3}
@@ -110,6 +119,12 @@ MonoBehaviour:
     - {fileID: 8300000, guid: d3ae7e8c7a83242428f2a5fda54a08c1, type: 3}
     - {fileID: 8300000, guid: 4068e0998653f604d990770daae8dd94, type: 3}
     - {fileID: 8300000, guid: 5225d09e82f57994eb88e49c27873662, type: 3}
+  - Name: 4PackagePickup
+    Clips:
+    - {fileID: 8300000, guid: 9170c0027df5f5f429f5ddfed613fa5d, type: 3}
+    - {fileID: 8300000, guid: fd33e6c45cc273b429e218a3b4654da2, type: 3}
+    - {fileID: 8300000, guid: dac6545b5ad85bd47b38d1c6ec7a4879, type: 3}
+    - {fileID: 8300000, guid: 587f4c72af676b044ad1ac094d5d599d, type: 3}
 --- !u!82 &470398179335620268
 AudioSource:
   m_ObjectHideFlags: 0

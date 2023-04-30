@@ -1385,6 +1385,7 @@ MonoBehaviour:
   - {fileID: 6791229015485583431, guid: 092064bf8f6ce124fadae61f9f36d4e1, type: 3}
   - {fileID: 5184655971912752758, guid: 46cdbbdd6d9334a45b21ba0c15afa455, type: 3}
   - {fileID: 5489753997771759910, guid: df4e4a26ba16045429c7e05b3aedfdd0, type: 3}
+  - {fileID: 2421451788641223698, guid: 4f8c291020a8ff04c8855863f7b2b351, type: 3}
   _playerPrefab: {fileID: 8332830177499122150, guid: aedad5a7d9af061489c1edd3f454bf11, type: 3}
   _aiPrefab: {fileID: 9048016741955227184, guid: dea9b4d4cd2377742b6b2594d2cad2af, type: 3}
   _pickupPrefab: {fileID: 151219926686823293, guid: 69ddae0860bd3154bbd74dd7a6d5a7e1, type: 3}
