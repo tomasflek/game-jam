@@ -23,15 +23,15 @@ namespace Character
 		private static readonly int IsMovingTrigger = Animator.StringToHash("IsMovingTrigger");
 		private float _movementDuration;
 		private bool _moving;
+
 		private Dictionary<InputAction, Vector3> _movementVectorDict = new()
 		{
-			{InputAction.Left, Vector3.left},
-			{InputAction.Right, Vector3.right},
-			{InputAction.Up, Vector3.forward},
-			{InputAction.Down, Vector3.back},
-			
+			{ InputAction.Left, Vector3.left },
+			{ InputAction.Right, Vector3.right },
+			{ InputAction.Up, Vector3.forward },
+			{ InputAction.Down, Vector3.back },
 		};
-		private Dictionary<Vector3, InputAction> _inputActionVectorDict = new();
+
 		private MovementImageIconsController _iconChnager;
 
 		private bool _firstMovenemt = true;
@@ -93,6 +93,7 @@ namespace Character
 
 		public void GenerateMovementVectors(bool random)
 		{
+			random = false;
 			var controllerType = GameManager.Instance.PlayerIndexType[PlayerIndex];
 			var movementVectors = new List<Vector3>()
 			{
@@ -160,7 +161,7 @@ namespace Character
 
 			if (inputKeyEvent.Action is InputAction.Start)
 				return;
-			
+
 			_firstMovenemt = false;
 			_movementVector = _movementVectorDict[inputKeyEvent.Action];
 
@@ -188,20 +189,7 @@ namespace Character
 				return false;
 			if (Mathf.Abs(targetPosition.x) >= _borders.x)
 				return false;
-
-			// Check whether it's possible to move to home (cannot move only to my home)
-			Collider[] hitColliders = Physics.OverlapSphere(targetPosition, 0.5f);
-			foreach (var hitCollider in hitColliders.Where(p => p.CompareTag("Home")))
-			{
-				var playerId = gameObject.GetInstanceID();
-				var homeId = hitCollider.gameObject.GetInstanceID();
-				if (GameManager.Instance.PlayerGameObjectIdHomeGameObjectId.TryGetValue(
-					    playerId, out int homeGameObjectId))
-				{
-					return homeGameObjectId == homeId;
-				}
-			}
-
+			
 			return true;
 		}
 

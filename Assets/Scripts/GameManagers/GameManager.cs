@@ -20,13 +20,14 @@ namespace GameManagers
 
 		// map player gameObject id to controller index
 		public Dictionary<int, int> PlayerGameObjectIdPlayerIndex = new();
-		public Dictionary<int, int> PlayerGameObjectIdHomeGameObjectId = new();
 		public Dictionary<int, int> PlayerIndexSelectedCharacterPrefabIndex = new();
 
 		[SerializeField] public List<GameObject> CharacterPrefabs;
 		[SerializeField] private GameObject _playerPrefab;
 		[SerializeField] private GameObject _pickupPrefab;
 		[SerializeField] private GameObject _homePrefab;
+		
+		[SerializeField] private Vector3 _gamePlaneSize = new Vector3(7,0,7);
 
 		private GameObject _pickup;
 		public bool Paused { get; set; }
@@ -41,8 +42,16 @@ namespace GameManagers
 
 		private void OnDelivery(DeliveryEvent obj)
 		{
-			int scene = SceneManager.GetActiveScene().buildIndex; 
-			SceneManager.LoadScene(scene, LoadSceneMode.Single);
+			// remove pickup and spawn a new one.
+			Destroy(_pickup);
+
+			var x = UnityEngine.Random.Range(-_gamePlaneSize.x + 1, _gamePlaneSize.x - 1);
+			var z = UnityEngine.Random.Range(-_gamePlaneSize.z + 1, _gamePlaneSize.z - 1);
+			var pickupPosition = new Vector3((float)Math.Truncate(x),
+			                                 0,
+			                                 (float)Math.Truncate(z));
+			
+			_pickup = Instantiate(_pickupPrefab, pickupPosition, Quaternion.identity);
 		}
 
 		public void StartPlayerRegistration()
@@ -95,7 +104,6 @@ namespace GameManagers
 		private void LoadGameScene()
 		{
 			PlayerGameObjectIdPlayerIndex = new();
-			PlayerGameObjectIdHomeGameObjectId = new();
 
 			SceneManager.LoadScene("GameScene");
 			SceneManager.sceneLoaded += OnSceneLoaded;
@@ -107,7 +115,7 @@ namespace GameManagers
 			
 			// Find spawning points for players.
 			var playerSpawns = GameObject.FindGameObjectsWithTag("PlayerSpawn").ToList();
-			var homeSpawns = GameObject.FindGameObjectsWithTag("HomeSpawn").ToList();
+			var homeSpawn = GameObject.FindGameObjectsWithTag("HomeSpawn").First();
 
 			foreach (var playerIndexSelectedCharacterPrefabIndex in PlayerIndexSelectedCharacterPrefabIndex)
 			{
@@ -129,15 +137,12 @@ namespace GameManagers
 				var character = Instantiate(charPrefab, playerSpawns[randomIndex].transform.position, Quaternion.identity);
 				character.transform.parent = player.transform;
 				playerSpawns.Remove(respawnPoint);
-				
-				// spawn a home for the player
-				var homeRandomIndex = random.Next(0, homeSpawns.Count);
-				var homePoint = homeSpawns[homeRandomIndex];
-				var home = Instantiate(_homePrefab, homeSpawns[homeRandomIndex].transform.position, Quaternion.identity);
-				PlayerGameObjectIdHomeGameObjectId[player.GetInstanceID()] = home.GetInstanceID();
-				homeSpawns.Remove(homePoint);
 			}
 
+			// spawn a home for the player
+			
+			Instantiate(_homePrefab, homeSpawn.transform.position, Quaternion.identity);
+			
 			// Spawn pickup
 			var pickaupSpawningPoint = GameObject.FindGameObjectWithTag("PickupSpawn");
 			_pickup = Instantiate(_pickupPrefab, pickaupSpawningPoint.transform.position, Quaternion.identity);
