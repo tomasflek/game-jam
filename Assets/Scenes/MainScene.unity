@@ -710,11 +710,27 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Controls:
+  m_text: 'Hey,
 
-    Keyboard - WSAD
+    Hey,
 
-    Gamepad - XYAB'
+
+    You''re the postman and you should know what to do,
+    but just in case:
+
+
+    Follow the symbols and try not to get confused.
+
+
+    Fetch
+    the box to the post office
+
+
+    If needed, Post Battle over the package by pushing
+    the right symbol sequence.
+
+
+    Try to enjoy it.'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
