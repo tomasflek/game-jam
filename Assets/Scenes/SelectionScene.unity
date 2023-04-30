@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028331, g: 0.2257133, b: 0.3069217, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1381,12 +1381,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CharacterPrefabs:
-  - {fileID: 919132149155446097, guid: fcf600d5511465d41827e06b6babc917, type: 3}
-  - {fileID: 919132149155446097, guid: 3306b3ed0aa07ed4984380257cdde85c, type: 3}
-  - {fileID: 919132149155446097, guid: f5ab3653951889e468631b6406ff1610, type: 3}
-  - {fileID: 919132149155446097, guid: d323b2b8b0a7dc844984ab7b42a7bb25, type: 3}
-  PlayerPrefab: {fileID: 8332830177499122150, guid: aedad5a7d9af061489c1edd3f454bf11, type: 3}
+  - {fileID: 1294174133349730743, guid: 2f8ed0cd401e61040b7a91edfd29a3eb, type: 3}
+  - {fileID: 6791229015485583431, guid: 092064bf8f6ce124fadae61f9f36d4e1, type: 3}
+  - {fileID: 5184655971912752758, guid: 46cdbbdd6d9334a45b21ba0c15afa455, type: 3}
+  - {fileID: 5489753997771759910, guid: df4e4a26ba16045429c7e05b3aedfdd0, type: 3}
+  _playerPrefab: {fileID: 8332830177499122150, guid: aedad5a7d9af061489c1edd3f454bf11, type: 3}
   _pickupPrefab: {fileID: 151219926686823293, guid: 69ddae0860bd3154bbd74dd7a6d5a7e1, type: 3}
+  _homePrefab: {fileID: 7350880872409831085, guid: 2d24ed31bd1202941bb20979574aa4f2, type: 3}
 --- !u!4 &1633770336
 Transform:
   m_ObjectHideFlags: 0

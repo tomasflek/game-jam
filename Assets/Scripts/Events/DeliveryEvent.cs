@@ -1,11 +1,12 @@
-using Events;
-
-public class DeliveryEvent : EventBase
+namespace Events
 {
-	public string PlayerName { get; set; }
-
-	public DeliveryEvent(string playerName)
+	public class DeliveryEvent : EventBase
 	{
-		PlayerName = playerName;
+		public string PlayerName { get; set; }
+
+		public DeliveryEvent(string playerName)
+		{
+			PlayerName = playerName;
+		}
 	}
 }

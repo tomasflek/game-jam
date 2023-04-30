@@ -1,17 +1,16 @@
+using System;
 using System.Collections;
 using System.Linq;
-using ActivationDeactivation;
 using Events;
 using Events.Input;
 using GameManagers;
 using Inputs;
-using Interface;
 using UnityEngine;
 
 namespace Character
 {
 	[RequireComponent(typeof(Animator))]
-	public class PlayerController : MonoBehaviour, IControllerActivable
+	public class PlayerController : MonoBehaviour
 	{
 		[SerializeField] private Vector3 _borders;
 
@@ -30,6 +29,11 @@ namespace Character
 			_movementDuration = GetMovementDuration();
 			// RegisterController();
 			EventManager.Instance.Register<InputKeyEvent>(OnInputKey);
+		}
+
+		private void OnDestroy()
+		{
+			EventManager.Instance.Unregister<InputKeyEvent>(OnInputKey);
 		}
 
 		private float GetMovementDuration()
@@ -131,38 +135,8 @@ namespace Character
 
 			return true;
 		}
-
-		#region IControllerActivable implementation
-
-		public void RegisterController()
-		{
-			ActivationManager.Instance.Register(this, true);
-		}
-
-		public void UnregisterController()
-		{
-			ActivationManager.Instance.UnRegister(this);
-		}
-
-		public ControllerState ControllerState { get; set; }
+		
 		public int PlayerIndex { get; set; }
-
-		/// <summary>
-		/// Enables character controller and registers all events.
-		/// </summary>
-		public void ActivateController(object activator)
-		{
-			EventManager.Instance.Register<InputKeyEvent>(OnInputKey);
-		}
-
-		/// <summary>
-		/// Disables character controller and unregisters all events.
-		/// </summary>
-		public void DeactivateController(object deactivator)
-		{
-			EventManager.Instance.Unregister<InputKeyEvent>(OnInputKey);
-		}
-
-		#endregion IControllerActivable implementation
+		
 	}
 }

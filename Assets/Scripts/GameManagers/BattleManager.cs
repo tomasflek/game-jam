@@ -155,10 +155,10 @@ namespace GameManagers
 				_playerTwoAiTimer = GetNewAiTimer();
 
 
-			if (GameManager.Instance.GameObjectIdPlayerIndex.ContainsKey(playerOne.GetInstanceID()))
-				_playerOneControllerIndex = GameManager.Instance.GameObjectIdPlayerIndex[playerOne.GetInstanceID()];
-			if (GameManager.Instance.GameObjectIdPlayerIndex.ContainsKey(playerTwo.GetInstanceID()))
-				_playerTwoControllerIndex = GameManager.Instance.GameObjectIdPlayerIndex[playerTwo.GetInstanceID()];
+			if (GameManager.Instance.PlayerGameObjectIdPlayerIndex.ContainsKey(playerOne.GetInstanceID()))
+				_playerOneControllerIndex = GameManager.Instance.PlayerGameObjectIdPlayerIndex[playerOne.GetInstanceID()];
+			if (GameManager.Instance.PlayerGameObjectIdPlayerIndex.ContainsKey(playerTwo.GetInstanceID()))
+				_playerTwoControllerIndex = GameManager.Instance.PlayerGameObjectIdPlayerIndex[playerTwo.GetInstanceID()];
 
 			_playerOneCurrentCombo = _playerTwoCurrentCombo = 0;
 				
