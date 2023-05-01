@@ -48,8 +48,8 @@ namespace GameManagers
 		public GameObject playerOneMock;
 		public GameObject playerTwoMock;
 
-		private Transform playerOneModel;
-		private Transform playerTwoModel;
+		private List<Transform> playerOneModelToTransport;
+		private List<Transform> playerTwoModelToTransport;
 
 		protected override void Awake()
 		{
@@ -148,14 +148,9 @@ namespace GameManagers
 			_playerTwoStartPosition = playerTwo.transform.position;
 			_playerOneAi = playerOne.GetComponent<PlayerController>() == null;
 			_playerTwoAi = playerTwo.GetComponent<PlayerController>() == null;
-			int index1 = _playerOneAi ? 0 : 1; // tohle neni uplne dobry
-			int index2 = _playerTwoAi ? 0 : 1; // tohle neni uplne dobry
-			playerOneModel = _playerOne.transform.GetChild(index1).transform; 
-			playerTwoModel = _playerTwo.transform.GetChild(index2).transform; 
-			playerOneModel.transform.SetParent(_playerOneFightPosition, false);
-			playerTwoModel.transform.SetParent(_playerTwoFightPosition, false);
-			//_playerOne.transform.position = _playerOneFightPosition.position;
-			//_playerTwo.transform.position = _playerTwoFightPosition.position;
+
+			TransportToBattle();
+
 			BattleCanvas.gameObject.SetActive(true);
 			EventManager.Instance.Register<InputKeyEvent>(OnInputKey);
 			
@@ -184,14 +179,57 @@ namespace GameManagers
 			_isBattling = true;
 		}
 
+		private void TransportToBattle()
+		{
+			playerOneModelToTransport = new List<Transform>();
+			playerTwoModelToTransport = new List<Transform>();
+			// FILTER HACK
+			foreach (Transform item in _playerOne.transform)
+			{
+				if (item.gameObject.tag != "Pickup" &&
+					item.gameObject.name != "MovementCanvas")
+				{
+					playerOneModelToTransport.Add(item);
+				}
+			}
+			foreach (Transform item in _playerTwo.transform)
+			{
+				if (item.gameObject.tag != "Pickup" &&
+					item.gameObject.name != "MovementCanvas")
+				{ 
+					playerTwoModelToTransport.Add(item);
+				}
+			}
+
+			// TRANSPORT HACK
+			foreach (Transform item in playerOneModelToTransport)
+			{
+				item.SetParent(_playerOneFightPosition, false);
+			}
+			foreach (Transform item in playerTwoModelToTransport)
+			{
+				item.SetParent(_playerTwoFightPosition, false);
+			}
+		}
+
+		private void TransportBack()
+		{
+			foreach (Transform item in playerOneModelToTransport)
+			{
+				item.SetParent(_playerOne.transform, false);
+			}
+			foreach (Transform item in playerTwoModelToTransport)
+			{
+				item.SetParent(_playerTwo.transform, false);
+			}
+		}
+
 		public void EndBattle(GameObject loser)
 		{
 			_isBattling = false;
 			EventManager.Instance.Unregister<InputKeyEvent>(OnInputKey);
-			//_playerOne.transform.position = _playerOneStartPosition;
-			//_playerTwo.transform.position = _playerTwoStartPosition;
-			playerOneModel.transform.SetParent(_playerOne.transform, false);
-			playerTwoModel.transform.SetParent(_playerTwo.transform, false);
+
+			TransportBack();
 
 			var playerSpawns = GameObject.FindGameObjectsWithTag("PlayerSpawn").ToList();
 			var respawnPoint = playerSpawns[Random.Range(0, playerSpawns.Count)];
