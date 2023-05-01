@@ -140,12 +140,19 @@ namespace GameManagers
 			var playerSpawns = GameObject.FindGameObjectsWithTag("PlayerSpawn").ToList();
 			var homeSpawn = GameObject.FindGameObjectsWithTag("HomeSpawn").First();
 
+			List<int> availableAIPrefabIndexes = new List<int>();
+			for (int i = 0; i < CharacterPrefabs.Count; i++)
+			{
+				availableAIPrefabIndexes.Add(i);
+			}
+
 			int playerCounter = 1;
 			foreach (var playerIndexSelectedCharacterPrefabIndex in PlayerIndexSelectedCharacterPrefabIndex)
 			{
 				var prefabIndex = playerIndexSelectedCharacterPrefabIndex.Value;
 				var playerIndex = playerIndexSelectedCharacterPrefabIndex.Key;
 				var charPrefab = CharacterPrefabs[prefabIndex];
+				availableAIPrefabIndexes.Remove(prefabIndex);
 
 				// get random respawn point
 				var random = new System.Random();
@@ -178,6 +185,7 @@ namespace GameManagers
 			
 			// SPAWN SOME AI
 			int aiCount = 4 - PlayerIndexSelectedCharacterPrefabIndex.Count;
+			
 			for (int i = 0; i < aiCount; i++)
 			{
 				// get random respawn point
@@ -186,8 +194,9 @@ namespace GameManagers
 				var respawnPoint = playerSpawns[randomIndex];
 				var ai = Instantiate(_aiPrefab, respawnPoint.transform.position, Quaternion.identity);
 
-				int charIndex = random.Next(0, CharacterPrefabs.Count);
-				var character = Instantiate(CharacterPrefabs[charIndex], Vector3.zero, Quaternion.identity);
+				int charIndex = random.Next(0, availableAIPrefabIndexes.Count);
+				var character = Instantiate(CharacterPrefabs[availableAIPrefabIndexes[charIndex]], Vector3.zero, Quaternion.identity);
+				availableAIPrefabIndexes.Remove(availableAIPrefabIndexes[charIndex]);
 				var aiController = ai.GetComponent<AIController>();
 				if (i == 0 && aiCount > 1)
 				{
