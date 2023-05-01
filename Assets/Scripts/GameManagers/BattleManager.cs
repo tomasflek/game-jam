@@ -173,8 +173,7 @@ namespace GameManagers
 
 			SetBattleCamera();
 			AudioManager.Instance.PlayMusicSound("PostmanBattle", false);
-			AudioManager.Instance.MusicEnd += () => AudioManager.Instance.PlayMusicSound("BattleMusic", true);
-			
+			AudioManager.Instance.MusicEnd += PlayBattleMusic;
 
 			_isBattling = true;
 		}
@@ -226,6 +225,8 @@ namespace GameManagers
 
 		public void EndBattle(GameObject loser)
 		{
+			// Remove next music event. If battle ends before postman battle music finishes, battle music will be playing instead of theme music
+			AudioManager.Instance.MusicEnd -= PlayBattleMusic;
 			_isBattling = false;
 			EventManager.Instance.Unregister<InputKeyEvent>(OnInputKey);
 
@@ -241,6 +242,11 @@ namespace GameManagers
 			AudioManager.Instance.PlayMusicSound("ThemeMusic", true);
 
 			GameManager.Instance.Paused = false;
+		}
+
+		private void PlayBattleMusic()
+		{
+			AudioManager.Instance.PlayMusicSound("BattleMusic", true);
 		}
 
 		private float GetNewAiTimer()

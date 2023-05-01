@@ -17,6 +17,7 @@ public class SelectionVisualizer : MonoBehaviour
 	private void Start()
 	{
 		EventManager.Instance.Register<PlayerSelectionEvent>(VisualizePlayerSelection);
+		AudioManager.Instance.PlayMusicSound("ThemeMusic", true);
 	}
 
 	private void OnDestroy()
