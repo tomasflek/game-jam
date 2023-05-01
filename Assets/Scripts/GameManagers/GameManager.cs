@@ -66,7 +66,8 @@ namespace GameManagers
 			                                 0,
 			                                 (float)Math.Truncate(z));
 
-			PlayerWithPickup.GetComponent<IPrefab>().PickedUp = false;
+			var playerObject = PlayerWithPickup.GetComponent<IPrefab>();
+			playerObject.PickedUp = false;
 			PlayerWithPickup = null;
 			PickupObject = Instantiate(_pickupPrefab, pickupPosition, Quaternion.identity);
 			
@@ -229,6 +230,7 @@ namespace GameManagers
 		public void Pickup(Transform player)
 		{
 			PlayerWithPickup = player.gameObject;
+			PlayerWithPickup.GetComponent<IPrefab>().PickedUp = true;
 			PickupObject.transform.position = player.transform.position;
 			PickupObject.transform.Translate(Vector3.up);
 			PickupObject.transform.parent = player.transform;
