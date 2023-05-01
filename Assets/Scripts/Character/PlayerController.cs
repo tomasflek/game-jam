@@ -187,6 +187,9 @@ namespace Character
 
 		private bool CanMove(Vector3 targetPosition)
 		{
+			if (targetPosition == new Vector3(0, 0, 7) && !PickedUp)
+				return false;
+			
 			// Check boundaries movement.
 			if (Mathf.Abs(targetPosition.z) >= _borders.z)
 				return false;
@@ -197,5 +200,6 @@ namespace Character
 		}
 
 		public int PlayerIndex { get; set; }
+		public bool PickedUp { get; set; }
 	}
 }

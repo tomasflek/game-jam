@@ -37,6 +37,7 @@ public class PickupController : MonoBehaviour
         {
             _player = other.GetComponent<IPrefab>();
             _pickedUp = true;
+            _player.PickedUp = true;
 
             GameManager.Instance.Pickup(other.transform);
             int prefabInd = other.GetComponent<IPrefab>().PrefabInt;

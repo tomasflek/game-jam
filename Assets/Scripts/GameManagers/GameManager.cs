@@ -66,6 +66,7 @@ namespace GameManagers
 			                                 0,
 			                                 (float)Math.Truncate(z));
 
+			PlayerWithPickup.GetComponent<IPrefab>().PickedUp = false;
 			PlayerWithPickup = null;
 			PickupObject = Instantiate(_pickupPrefab, pickupPosition, Quaternion.identity);
 			
