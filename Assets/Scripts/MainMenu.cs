@@ -1,5 +1,6 @@
 using Events;
 using Inputs;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -54,6 +55,15 @@ public class MainMenu : MonoBehaviour
 			ToggleTutorialPanel();
 		}
 	}
+
+	public void ExitGame()
+	{
+		#if UNITY_EDITOR
+			EditorApplication.isPlaying = false;
+		#else
+			Application.Quit();
+		#endif
+}
 
 	private void MenuControl(InputKeyEventUI inputKeyEvent)
 	{
