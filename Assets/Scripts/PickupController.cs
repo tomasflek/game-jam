@@ -40,11 +40,7 @@ public class PickupController : MonoBehaviour
 
             GameManager.Instance.Pickup(other.transform);
             int prefabInd = other.GetComponent<IPrefab>().PrefabInt;
-			if(GameManager.Instance.PlayerIndexSelectedCharacterPrefabIndex.TryGetValue(prefabInd, out int prefabIndex))
-			{
-				AudioManager.Instance.PlayCharacterSound(prefabIndex, "PackagePickup");
-			}
-
+			AudioManager.Instance.PlayCharacterSound(prefabInd, "PackagePickup");
         }
         else if (other.gameObject.CompareTag("Home"))
         {

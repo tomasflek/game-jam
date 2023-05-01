@@ -33,7 +33,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &6491313626644771949
 MonoBehaviour:
@@ -125,6 +125,43 @@ MonoBehaviour:
     - {fileID: 8300000, guid: fd33e6c45cc273b429e218a3b4654da2, type: 3}
     - {fileID: 8300000, guid: dac6545b5ad85bd47b38d1c6ec7a4879, type: 3}
     - {fileID: 8300000, guid: 587f4c72af676b044ad1ac094d5d599d, type: 3}
+  - Name: 0Win
+    Clips:
+    - {fileID: 8300000, guid: 4b92c2e1b81e24b4e8be7481b5b06fb0, type: 3}
+    - {fileID: 8300000, guid: a09d59497ab6b0c42b812dc61f57c129, type: 3}
+    - {fileID: 8300000, guid: 5ad2dc641c173564bacd75e53452fa87, type: 3}
+    - {fileID: 8300000, guid: 882774625321ef94eaca92832840c476, type: 3}
+  - Name: 1Win
+    Clips:
+    - {fileID: 8300000, guid: ae9fe6b399bd50a4086e04397965f9a4, type: 3}
+    - {fileID: 8300000, guid: 78693be9d9b0c57448a40ed3de7d1c29, type: 3}
+    - {fileID: 8300000, guid: 7acdfe4cd335c1b47806f7d7a2bbf3a1, type: 3}
+    - {fileID: 8300000, guid: 8ac6017ec86000c4aae292729ea8006c, type: 3}
+    - {fileID: 8300000, guid: b84d81492e4f1bd46929d28e7127e4d6, type: 3}
+    - {fileID: 8300000, guid: 41dcc7c938c3f3943a299673dd8445d0, type: 3}
+    - {fileID: 8300000, guid: 75bead180a88dc445b10fbf0b47d0615, type: 3}
+    - {fileID: 8300000, guid: 6d08e3423bb5ecb46b512b14da8fc324, type: 3}
+  - Name: 2Win
+    Clips:
+    - {fileID: 8300000, guid: a2846bdc526794548b9b7d08ae15bf02, type: 3}
+    - {fileID: 8300000, guid: 7495dfb3876e38a448c14981673a5398, type: 3}
+    - {fileID: 8300000, guid: 2fa6e46e68b50644a8fbf63fdeb6663d, type: 3}
+    - {fileID: 8300000, guid: 6980b51f0b24ffd4db3f0f256c34e9b9, type: 3}
+    - {fileID: 8300000, guid: 272fe784b2424fe48a0f7b94ec84c88a, type: 3}
+    - {fileID: 8300000, guid: 272fe784b2424fe48a0f7b94ec84c88a, type: 3}
+    - {fileID: 8300000, guid: 5618c734606926a4c844c76d46a8b4cf, type: 3}
+    - {fileID: 8300000, guid: c493e9e64e8e03b4d91ceaed90b9e11d, type: 3}
+  - Name: 3Win
+    Clips:
+    - {fileID: 8300000, guid: 06c7a1b0332a7654c933c7feaece68a3, type: 3}
+    - {fileID: 8300000, guid: e497591afb42c0842b1d1f3b8a977692, type: 3}
+  - Name: 4Win
+    Clips:
+    - {fileID: 8300000, guid: 8cbaecbfb3c3daf4c9048baa8abc280c, type: 3}
+    - {fileID: 8300000, guid: 16ce554cc76216b459c7e07611ff6e93, type: 3}
+    - {fileID: 8300000, guid: b2fc53afb5206f044acbf8304899f004, type: 3}
+    - {fileID: 8300000, guid: b838d39633448184590a33edc44ec21c, type: 3}
+    - {fileID: 8300000, guid: 0db8065d856c1e64cac5efb7955f50d3, type: 3}
 --- !u!82 &470398179335620268
 AudioSource:
   m_ObjectHideFlags: 0
@@ -326,7 +363,7 @@ AudioSource:
   m_GameObject: {fileID: 7024280662527252488}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 5556928348610561808, guid: 44d89a516c1cf7f4291fee3d1248647c, type: 2}
+  OutputAudioMixerGroup: {fileID: -1370598040338943946, guid: 44d89a516c1cf7f4291fee3d1248647c, type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
   m_Volume: 1

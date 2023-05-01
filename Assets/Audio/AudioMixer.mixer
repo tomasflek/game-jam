@@ -33,6 +33,39 @@ AudioMixerGroupController:
   m_Mute: 0
   m_Solo: 0
   m_BypassEffects: 0
+--- !u!243 &-1370598040338943946
+AudioMixerGroupController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: CharacterAudio
+  m_AudioMixer: {fileID: 24100000}
+  m_GroupID: 93ebc1a0109c36a71923a07f9e4bb079
+  m_Children: []
+  m_Volume: 74d39087688d64c15a9f87abfbebe107
+  m_Pitch: ef65cc149a4346b61bf5ea61dd0f0c39
+  m_Send: 00000000000000000000000000000000
+  m_Effects:
+  - {fileID: -1134492557854330827}
+  m_UserColorIndex: 0
+  m_Mute: 0
+  m_Solo: 0
+  m_BypassEffects: 0
+--- !u!244 &-1134492557854330827
+AudioMixerEffectController:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 
+  m_EffectID: dff3890bb34931aff9d062e9e5044fa0
+  m_EffectName: Attenuation
+  m_MixLevel: a21f2eb7120063d1daab4d3b9baea8b1
+  m_Parameters: []
+  m_SendTarget: {fileID: 0}
+  m_EnableWetMix: 0
+  m_Bypass: 0
 --- !u!241 &24100000
 AudioMixerController:
   m_ObjectHideFlags: 0
@@ -54,6 +87,7 @@ AudioMixerController:
     - e5b65c3e25422004c9a82ff066c1e32b
     - fe2eac0f5004c3941bc055a740ad6082
     - e237ffc7ba1e3aa45b387b4ce8410f41
+    - 93ebc1a0109c36a71923a07f9e4bb079
     name: View
   m_CurrentViewIndex: 0
   m_TargetSnapshot: {fileID: 24500006}
@@ -69,6 +103,7 @@ AudioMixerGroupController:
   m_Children:
   - {fileID: -5947327345162833167}
   - {fileID: 5556928348610561808}
+  - {fileID: -1370598040338943946}
   m_Volume: a54e5b9902d6fa84fa1bea80c3d5eabc
   m_Pitch: e9f376098bf077c40b563b8b284c01c8
   m_Send: 00000000000000000000000000000000
@@ -101,7 +136,9 @@ AudioMixerSnapshotController:
   m_Name: Snapshot
   m_AudioMixer: {fileID: 24100000}
   m_SnapshotID: b81dc89f5c1319f4995d3b5520a0d6f9
-  m_FloatValues: {}
+  m_FloatValues:
+    31d5fca2ae519ee41a0a23264db74a36: -10.214906
+    74d39087688d64c15a9f87abfbebe107: 3.707557
   m_TransitionOverrides: {}
 --- !u!244 &2857890461140282194
 AudioMixerEffectController:
@@ -123,7 +160,7 @@ AudioMixerGroupController:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: InGame
+  m_Name: Music
   m_AudioMixer: {fileID: 24100000}
   m_GroupID: e237ffc7ba1e3aa45b387b4ce8410f41
   m_Children: []

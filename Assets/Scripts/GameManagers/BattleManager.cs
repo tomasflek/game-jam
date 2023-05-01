@@ -177,8 +177,9 @@ namespace GameManagers
 			GenerateComboButtons(PlayerTwoPanel, _playerTwoControllerIndex);
 
 			SetBattleCamera();
-
-			AudioManager.Instance.PlayMusicSound("BattleMusic", true);
+			AudioManager.Instance.PlayMusicSound("PostmanBattle", false);
+			AudioManager.Instance.MusicEnd += () => AudioManager.Instance.PlayMusicSound("BattleMusic", true);
+			
 
 			_isBattling = true;
 		}
