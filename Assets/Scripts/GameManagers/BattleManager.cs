@@ -24,6 +24,7 @@ namespace GameManagers
 		[SerializeField] 
 		private Transform _playerTwoFightPosition;
 		public Canvas BattleCanvas;
+		public Canvas GameCanvas;
 		public GameObject PlayerOnePanel;
 		public GameObject PlayerTwoPanel;
 		private Vector3 _playerOneStartPosition;
@@ -152,6 +153,7 @@ namespace GameManagers
 			TransportToBattle();
 
 			BattleCanvas.gameObject.SetActive(true);
+			GameCanvas.gameObject.SetActive(false);
 			EventManager.Instance.Register<InputKeyEvent>(OnInputKey);
 			
 			if (_playerOneAi)
@@ -237,6 +239,7 @@ namespace GameManagers
 			loser.transform.position = respawnPoint.transform.position;
 
 			BattleCanvas.gameObject.SetActive(false);
+			GameCanvas.gameObject.SetActive(true);
 			EndBattleCamera();
 
 			AudioManager.Instance.PlayMusicSound("ThemeMusic", true);

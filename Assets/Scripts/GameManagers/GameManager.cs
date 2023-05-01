@@ -14,6 +14,7 @@ namespace GameManagers
 {
 	public class GameManager : UnitySingleton<GameManager>
 	{
+		public const int AIIndexOffset = 10000;
 		//int controllerIndex, ControllerType controllerType
 		public Dictionary<int, ControllerType> PlayerIndexType = new();
 
@@ -32,7 +33,7 @@ namespace GameManagers
 		[HideInInspector] public GameObject PickupObject;
 		[HideInInspector] public GameObject Home;
 
-		private List<Player> _players = new();
+		public List<Player> Players = new();
 
 		public Difficulty Difficulty = Difficulty.RandomControls;
 		public bool Paused { get; set; }
@@ -54,7 +55,7 @@ namespace GameManagers
 
 		private void OnDelivery(DeliveryEvent obj)
 		{
-			var player = _players.First(p => p.PlayerIndex == obj.PlayerIndex);
+			var player = Players.First(p => p.PlayerIndex == obj.PlayerIndex);
 			player.Score += 1; 
 			
 			// remove pickup and spawn a new one.
@@ -168,7 +169,7 @@ namespace GameManagers
 					PlayerName = $"Player {playerCounter}",
 					PlayerIndex = playerIndex
 				};
-				_players.Add(playerInformation);
+				Players.Add(playerInformation);
 				playerCounter++;
 				playerSpawns.Remove(respawnPoint);
 			}
@@ -194,7 +195,7 @@ namespace GameManagers
 					aiController.randomMoveChance = 10;
 				}
 
-				aiController.PlayerIndex = 10000 + playerCounter;
+				aiController.PlayerIndex = AIIndexOffset + playerCounter;
 
 				aiController.PrefabInt = charIndex;
 				character.transform.SetParent(ai.transform, false);
@@ -205,7 +206,7 @@ namespace GameManagers
 					PlayerName = $"PC {playerCounter}",
 					PlayerIndex = aiController.PlayerIndex
 				};
-				_players.Add(playerInformation);
+				Players.Add(playerInformation);
 				playerCounter++;
 				
 				playerSpawns.Remove(respawnPoint);
