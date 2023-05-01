@@ -155,6 +155,11 @@ namespace GameManagers
 				int charIndex = random.Next(0, CharacterPrefabs.Count);
 				var character = Instantiate(CharacterPrefabs[charIndex], Vector3.zero, Quaternion.identity);
 				var aiController = ai.GetComponent<AIController>();
+				if (i == 0 && aiCount > 1)
+				{
+					aiController.Behavior = AIBehaviour.Blocker;
+					aiController.randomMoveChance = 10;
+				}
 				aiController.PrefabInt = charIndex;
 				character.transform.SetParent(ai.transform, false);
 				playerSpawns.Remove(respawnPoint);

@@ -24,13 +24,17 @@ namespace Character
 		private float _movementDuration;
 		private bool _moving;
 
-		[SerializeField]
-		private float _randomChance = 30f;
+		public float randomMoveChance = 30f;
 		[SerializeField]
 		private float AiMoveMin = 0.3f;
 		[SerializeField]
 		private float AiMoveMAx = 0.8f;
 		private float aiMoveRemain;
+
+		[SerializeField]
+		private bool randomBehaviour = false;
+
+		public AIBehaviour Behavior = AIBehaviour.Follow;
 
 
 		private Dictionary<InputAction, Vector3> _movementVectorDict = new()
@@ -45,8 +49,6 @@ namespace Character
 		public int PrefabInt { get; set; }
 
 		private MovementImageIconsController _iconChnager;
-
-		private bool _firstMovenemt = true;
 		public string Name { get; set; }
 
 		private void Awake()
@@ -58,11 +60,23 @@ namespace Character
 		private void Start()
 		{
 			SetAiMoveRemain();
+			SetBehavior();
 		}
 
 		private void SetAiMoveRemain()
 		{
 			aiMoveRemain = Random.Range(AiMoveMin, AiMoveMAx);
+		}
+
+		private void SetBehavior()
+		{
+			if (!randomBehaviour) return;
+			if (Random.Range(0, 100) > 75)
+			{
+				Behavior = AIBehaviour.Follow;
+			}
+			else
+				Behavior = AIBehaviour.Blocker;
 		}
 
 		private float GetMovementDuration()
@@ -100,23 +114,38 @@ namespace Character
 			_movementVector = Vector3.zero;
 		}
 
-		private Transform GetTarget()
+		private Vector3 GetTarget(AIBehaviour behaviour, out Transform transform)
 		{
-			if (GameManager.Instance.PlayerWithPickup?.GetInstanceID() == this.gameObject.GetInstanceID())
-			{
-				return GameManager.Instance.Home.transform;
+			transform = null;
+			if (behaviour == AIBehaviour.Follow)
+			{				 
+				if (GameManager.Instance.PlayerWithPickup?.GetInstanceID() == this.gameObject.GetInstanceID())
+				{
+					transform = GameManager.Instance.Home.transform;
+					return transform.position;
+				}
+				else
+				{
+					transform = GameManager.Instance.PickupObject?.transform;
+					return transform?.position ?? Vector3.zero;
+				}
 			}
-			else
+
+			if (behaviour == AIBehaviour.Blocker)
 			{
-				return GameManager.Instance.PickupObject?.transform;
+				Vector3 targetDir = GameManager.Instance.PickupObject?.transform.position ?? Vector3.zero - GameManager.Instance.Home.transform.position;
+				targetDir.Normalize();
+				transform = GameManager.Instance.Home.transform;
+				return transform.position + targetDir;
 			}
+			return Vector3.zero;		
 		}
 
 		private Vector3 GetMoveVector()
 		{
-			Transform target = GetTarget();
+			Vector3 target = GetTarget(Behavior, out _);
 			if (target == null) return Vector3.zero;
-			var destination = transform.position - target.position;
+			var destination = transform.position - target;
 			Vector3 targetVector;
 			if (Mathf.Abs(destination.x) > Mathf.Abs(destination.z))
 			{
@@ -138,7 +167,7 @@ namespace Character
 			aiMoveRemain -= Time.deltaTime;
 			if (aiMoveRemain > 0) return;
 			SetAiMoveRemain();
-			bool random = Random.Range(0,100) > 100 - _randomChance;
+			bool random = Random.Range(0,100) > 100 - randomMoveChance;
 
 			if (random)
 			{
@@ -178,5 +207,11 @@ namespace Character
 			
 			return true;
 		}
+	}
+
+	public enum AIBehaviour
+	{
+		Follow,
+		Blocker
 	}
 }
