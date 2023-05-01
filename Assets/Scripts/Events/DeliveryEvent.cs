@@ -2,11 +2,11 @@ namespace Events
 {
 	public class DeliveryEvent : EventBase
 	{
-		public string PlayerName { get; set; }
+		public int PlayerIndex { get; set; }
 
-		public DeliveryEvent(string playerName)
+		public DeliveryEvent(int playerIndex)
 		{
-			PlayerName = playerName;
+			PlayerIndex = playerIndex;
 		}
 	}
 }

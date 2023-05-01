@@ -32,6 +32,8 @@ namespace GameManagers
 		[HideInInspector] public GameObject PickupObject;
 		[HideInInspector] public GameObject Home;
 
+		private List<Player> _players = new();
+
 		public Difficulty Difficulty = Difficulty.RandomControls;
 		public bool Paused { get; set; }
 		public GameObject PlayerWithPickup { get; set; }
@@ -52,6 +54,9 @@ namespace GameManagers
 
 		private void OnDelivery(DeliveryEvent obj)
 		{
+			var player = _players.First(p => p.PlayerIndex == obj.PlayerIndex);
+			player.Score += 1; 
+			
 			// remove pickup and spawn a new one.
 			Destroy(PickupObject);
 
@@ -63,6 +68,8 @@ namespace GameManagers
 
 			PlayerWithPickup = null;
 			PickupObject = Instantiate(_pickupPrefab, pickupPosition, Quaternion.identity);
+			
+			EventManager.Instance.SendEvent(new ScoreEvent(player));
 		}
 
 		public void StartPlayerRegistration()
@@ -130,6 +137,7 @@ namespace GameManagers
 			var playerSpawns = GameObject.FindGameObjectsWithTag("PlayerSpawn").ToList();
 			var homeSpawn = GameObject.FindGameObjectsWithTag("HomeSpawn").First();
 
+			int playerCounter = 1;
 			foreach (var playerIndexSelectedCharacterPrefabIndex in PlayerIndexSelectedCharacterPrefabIndex)
 			{
 				var prefabIndex = playerIndexSelectedCharacterPrefabIndex.Value;
@@ -151,9 +159,20 @@ namespace GameManagers
 				var character = Instantiate(charPrefab, playerSpawns[randomIndex].transform.position,
 				                            Quaternion.identity);
 				character.transform.parent = player.transform;
+				
+				Player playerInformation = new Player()
+				{
+					Score = 0,
+					PlayerName = $"Player {playerCounter}",
+					PlayerIndex = playerIndex
+				};
+				_players.Add(playerInformation);
+				playerCounter++;
 				playerSpawns.Remove(respawnPoint);
 			}
 
+			playerCounter = 1;
+			
 			// SPAWN SOME AI
 			int aiCount = 4 - PlayerIndexSelectedCharacterPrefabIndex.Count;
 			for (int i = 0; i < aiCount; i++)
@@ -173,8 +192,20 @@ namespace GameManagers
 					aiController.randomMoveChance = 10;
 				}
 
+				aiController.PlayerIndex = 10000 + playerCounter;
+
 				aiController.PrefabInt = charIndex;
 				character.transform.SetParent(ai.transform, false);
+				
+				Player playerInformation = new Player()
+				{
+					Score = 0,
+					PlayerName = $"PC {playerCounter}",
+					PlayerIndex = aiController.PlayerIndex
+				};
+				_players.Add(playerInformation);
+				playerCounter++;
+				
 				playerSpawns.Remove(respawnPoint);
 			}
 

@@ -13,7 +13,7 @@ public class PickupController : MonoBehaviour
     [SerializeField]
     private float rotationSpeed;
 
-    private PlayerController _player;
+    private IPrefab _player;
 
 
 	// Start is called before the first frame update
@@ -35,7 +35,7 @@ public class PickupController : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player") && !_pickedUp)
         {
-            _player = other.GetComponent<PlayerController>();
+            _player = other.GetComponent<IPrefab>();
             _pickedUp = true;
 
             GameManager.Instance.Pickup(other.transform);
@@ -44,7 +44,7 @@ public class PickupController : MonoBehaviour
         }
         else if (other.gameObject.CompareTag("Home"))
         {
-            EventManager.Instance.SendEvent(new DeliveryEvent(_player?.Name ?? "AI"));
+            EventManager.Instance.SendEvent(new DeliveryEvent(_player.PlayerIndex));  
         }
     }
 }

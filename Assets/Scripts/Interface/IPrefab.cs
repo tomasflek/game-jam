@@ -5,4 +5,5 @@ using UnityEngine;
 public interface IPrefab
 {
 	int PrefabInt { get; set; }
+	int PlayerIndex { get; set; }
 }

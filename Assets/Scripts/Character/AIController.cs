@@ -47,6 +47,7 @@ namespace Character
 
 
 		public int PrefabInt { get; set; }
+		public int PlayerIndex { get; set; }
 
 		private MovementImageIconsController _iconChnager;
 		public string Name { get; set; }
