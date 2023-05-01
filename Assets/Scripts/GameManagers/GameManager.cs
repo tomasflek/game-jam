@@ -26,13 +26,13 @@ namespace GameManagers
 		[SerializeField] private GameObject _aiPrefab;
 		[SerializeField] private GameObject _pickupPrefab;
 		[SerializeField] private GameObject _homePrefab;
-		
-		[SerializeField] private Vector3 _gamePlaneSize = new Vector3(7,0,7);
 
-		[HideInInspector]
-		public GameObject PickupObject;
-		[HideInInspector]
-		public GameObject Home;
+		[SerializeField] private Vector3 _gamePlaneSize = new Vector3(7, 0, 7);
+
+		[HideInInspector] public GameObject PickupObject;
+		[HideInInspector] public GameObject Home;
+
+		public Difficulty Difficulty = Difficulty.RandomControls;
 		public bool Paused { get; set; }
 		public GameObject PlayerWithPickup { get; set; }
 
@@ -41,6 +41,13 @@ namespace GameManagers
 			base.Awake();
 			StartPlayerRegistration();
 			EventManager.Instance.Register<DeliveryEvent>(OnDelivery);
+		}
+
+		public void ChangeDifficulty()
+		{
+			Difficulty = Difficulty is Difficulty.ClassicalControls ?
+				Difficulty.RandomControls :
+				Difficulty.ClassicalControls;
 		}
 
 		private void OnDelivery(DeliveryEvent obj)
@@ -61,7 +68,6 @@ namespace GameManagers
 		public void StartPlayerRegistration()
 		{
 			EventManager.Instance.Register<InputKeyEvent>(OnInputKey);
-			
 		}
 
 		public void EndPlayerRegistration()
@@ -71,6 +77,11 @@ namespace GameManagers
 
 		private void OnInputKey(InputKeyEvent inputKeyEvent)
 		{
+			if (inputKeyEvent.Action is InputAction.Select)
+			{
+				return;
+			}
+			
 			if (inputKeyEvent.Action == InputAction.Start)
 			{
 				// Start the game.
@@ -114,7 +125,7 @@ namespace GameManagers
 		private void OnSceneLoaded(Scene scene, LoadSceneMode loadSceneMode)
 		{
 			EndPlayerRegistration();
-			
+
 			// Find spawning points for players.
 			var playerSpawns = GameObject.FindGameObjectsWithTag("PlayerSpawn").ToList();
 			var homeSpawn = GameObject.FindGameObjectsWithTag("HomeSpawn").First();
@@ -137,10 +148,12 @@ namespace GameManagers
 				var playerController = player.GetComponent<PlayerController>();
 				playerController.PrefabInt = prefabIndex;
 				playerController.PlayerIndex = playerIndex;
-				var character = Instantiate(charPrefab, playerSpawns[randomIndex].transform.position, Quaternion.identity);
+				var character = Instantiate(charPrefab, playerSpawns[randomIndex].transform.position,
+				                            Quaternion.identity);
 				character.transform.parent = player.transform;
 				playerSpawns.Remove(respawnPoint);
 			}
+
 			// SPAWN SOME AI
 			int aiCount = 4 - PlayerIndexSelectedCharacterPrefabIndex.Count;
 			for (int i = 0; i < aiCount; i++)
@@ -159,6 +172,7 @@ namespace GameManagers
 					aiController.Behavior = AIBehaviour.Blocker;
 					aiController.randomMoveChance = 10;
 				}
+
 				aiController.PrefabInt = charIndex;
 				character.transform.SetParent(ai.transform, false);
 				playerSpawns.Remove(respawnPoint);
@@ -167,7 +181,7 @@ namespace GameManagers
 			// spawn a home for the player
 
 			Home = Instantiate(_homePrefab, homeSpawn.transform.position, Quaternion.identity);
-			
+
 			// Spawn pickup
 			var pickaupSpawningPoint = GameObject.FindGameObjectWithTag("PickupSpawn");
 			PickupObject = Instantiate(_pickupPrefab, pickaupSpawningPoint.transform.position, Quaternion.identity);
@@ -177,6 +191,7 @@ namespace GameManagers
 		{
 			EndPlayerRegistration();
 			EventManager.Instance.Unregister<DeliveryEvent>(OnDelivery);
+			
 		}
 
 		public void Pickup(Transform player)
@@ -186,5 +201,11 @@ namespace GameManagers
 			PickupObject.transform.Translate(Vector3.up);
 			PickupObject.transform.parent = player.transform;
 		}
+	}
+
+	public enum Difficulty
+	{
+		RandomControls,
+		ClassicalControls
 	}
 }

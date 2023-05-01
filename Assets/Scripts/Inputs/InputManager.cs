@@ -29,6 +29,7 @@ namespace Inputs
 			_playerInputActions.Player.Right.Enable();
 			_playerInputActions.Player.Down.Enable();
 			_playerInputActions.Player.Start.Enable();
+			_playerInputActions.Player.Select.Enable();
 			_playerInputActions.UI.ListUp.Enable();
 			_playerInputActions.UI.ListDown.Enable();
 			_playerInputActions.UI.ListAccept.Enable();
@@ -38,6 +39,7 @@ namespace Inputs
 			_playerInputActions.Player.Up.performed += OnUp;
 			_playerInputActions.Player.Left.performed += OnLeft;
 			_playerInputActions.Player.Start.performed += OnStart;
+			_playerInputActions.Player.Select.performed += OnSelect;
 			_playerInputActions.UI.ListUp.performed += OnListUp;
 			_playerInputActions.UI.ListDown.performed += OnListDown;
 			_playerInputActions.UI.ListAccept.performed += OnListAccept;
@@ -50,6 +52,7 @@ namespace Inputs
 			_playerInputActions.Player.Up.performed -= OnUp;
 			_playerInputActions.Player.Left.performed -= OnLeft;
 			_playerInputActions.Player.Start.performed -= OnStart;
+			_playerInputActions.Player.Select.performed -= OnSelect;
 			_playerInputActions.UI.ListUp.performed -= OnListUp;
 			_playerInputActions.UI.ListDown.performed -= OnListDown;
 			_playerInputActions.UI.ListAccept.performed -= OnListAccept;
@@ -78,6 +81,11 @@ namespace Inputs
 		private void OnStart(UnityEngine.InputSystem.InputAction.CallbackContext obj)
 		{
 			SendConditionallyEvent(InputAction.Start, obj.control.device);
+		}
+		
+		private void OnSelect(UnityEngine.InputSystem.InputAction.CallbackContext obj)
+		{
+			SendConditionallyEvent(InputAction.Select, obj.control.device);
 		}
 
 		private void OnListUp(UnityEngine.InputSystem.InputAction.CallbackContext obj)

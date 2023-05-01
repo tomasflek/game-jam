@@ -31,7 +31,6 @@ namespace Character
 			{ InputAction.Down, Vector3.back },
 		};
 
-
 		public int PrefabInt { get; set; }
 
 		private MovementImageIconsController _iconChnager;
@@ -95,7 +94,8 @@ namespace Character
 
 		public void GenerateMovementVectors(bool random)
 		{
-			// random = false;
+			random = GameManager.Instance.Difficulty is Difficulty.RandomControls;
+
 			var controllerType = GameManager.Instance.PlayerIndexType[PlayerIndex];
 			var movementVectors = new List<Vector3>()
 			{
@@ -158,7 +158,8 @@ namespace Character
 
 		private void OnInputKey(InputKeyEvent inputKeyEvent)
 		{
-			if (_moving || inputKeyEvent.ControllerIndex != PlayerIndex || GameManager.Instance.Paused)
+			if (_moving || inputKeyEvent.ControllerIndex != PlayerIndex || GameManager.Instance.Paused ||
+			    inputKeyEvent.Action is InputAction.Select)
 				return;
 
 			if (inputKeyEvent.Action is InputAction.Start)

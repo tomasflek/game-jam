@@ -7,6 +7,7 @@
 		Up,
 		Down,
 		Start,
+		Select,
 		ListUp,
 		ListDown,
 		ListAccept
